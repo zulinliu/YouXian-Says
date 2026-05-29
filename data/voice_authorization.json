@@ -1,0 +1,10 @@
+{
+  "authorized_voices": [],
+  "default_voice": {
+    "name": "本人声音",
+    "authorized": true,
+    "authorization_date": "2026-05-28",
+    "notes": "预设本人攸县方言声音"
+  },
+  "policy": "只有 authorized_voices 列表中的声音可用于生产。添加新声音必须记录授权信息。"
+}

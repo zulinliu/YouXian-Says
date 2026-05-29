@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+streamlit
+pydantic-settings
+openai>=1.30.0
+httpx
+tenacity>=8.0.0
+cryptography
+ffmpeg-python
+playwright
+sqlite-utils
+python-dotenv
+pytest
+pytest-cov
+aiosqlite>=0.20.0
+pyjwt>=2.8.0

@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "youxian-says"
+version = "0.1.0"
+description = "攸县方言短视频生产系统"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+markers = [
+    "slow: marks tests as slow (FFmpeg processing)",
+    "api: marks tests as requiring real API keys (skipped by default)",
+]
+asyncio_mode = "auto"
+
+[tool.coverage.run]
+source = ["config", "services"]
