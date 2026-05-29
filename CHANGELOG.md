@@ -5,6 +5,23 @@
 格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，
 版本遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## 0.1.0 (2026-05-29)
+
+
+### Features
+
+* 增加 GitHub 发版管理与社区规范 ([9265b95](https://github.com/zulinliu/YouXian-Says/commit/9265b95d4355d5ded4dd7e0bd53222d90b5d5a01))
+
+
+### Bug Fixes
+
+* 修复 55 项 ruff lint 错误使 CI 通过 ([beb2a87](https://github.com/zulinliu/YouXian-Says/commit/beb2a87c232c0fb319c5776b3e9b06658605fc2e))
+
+
+### Documentation
+
+* 完善 GitHub 开源社区规范与文档修正 ([447aa8a](https://github.com/zulinliu/YouXian-Says/commit/447aa8a90c6cf12dc652b5654b9d5346836dde9d))
+
 ## [1.0.0] - 2025-05-29
 
 ### Added
