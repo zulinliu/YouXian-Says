@@ -121,7 +121,7 @@ pip install pyjwt      # -> 2.13.0
 
 ### Recommended Project Structure
 ```
-youxianduanshipin/
+
 ├── config/
 │   ├── settings.py          # Pydantic Settings (admin_password shared secret)
 │   └── model_registry.py    # ModelRegistry (from Phase 1)

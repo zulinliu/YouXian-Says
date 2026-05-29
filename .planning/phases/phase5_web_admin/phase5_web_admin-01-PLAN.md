@@ -5,14 +5,14 @@ type: execute
 wave: 1
 depends_on: []
 files_modified:
-  - youxianduanshipin/web/app.py
-  - youxianduanshipin/web/pages/settings.py
-  - youxianduanshipin/web/pages/create.py
-  - youxianduanshipin/web/pages/review.py
-  - youxianduanshipin/web/pages/publish.py
-  - youxianduanshipin/web/pages/dashboard.py
-  - youxianduanshipin/web/models.py
-  - youxianduanshipin/tests/test_web_admin.py
+  - web/app.py
+  - web/pages/settings.py
+  - web/pages/create.py
+  - web/pages/review.py
+  - web/pages/publish.py
+  - web/pages/dashboard.py
+  - web/models.py
+  - tests/test_web_admin.py
 autonomous: true
 requirements: [WEB-03, WEB-05, WEB-06, WEB-07, WEB-08, WEB-09, CHECK-03, CHECK-04]
 user_setup: []
@@ -26,28 +26,28 @@ must_haves:
     - "User can manage model settings (existing) plus review settings page enhancements"
     - "Navigation includes all 5 pages: create, review, publish, dashboard, settings"
   artifacts:
-    - path: "youxianduanshipin/web/app.py"
+    - path: "web/app.py"
       provides: "Streamlit entrypoint with all 5 page navigation"
       min_lines: 60
-    - path: "youxianduanshipin/web/pages/create.py"
+    - path: "web/pages/create.py"
       provides: "Topic creation page: idea input, AI diverge, topic confirmation"
       min_lines: 100
-    - path: "youxianduanshipin/web/pages/review.py"
+    - path: "web/pages/review.py"
       provides: "Review page: storyboard preview, video playback, approve/reject with structured revision"
       min_lines: 150
-    - path: "youxianduanshipin/web/pages/publish.py"
+    - path: "web/pages/publish.py"
       provides: "Publish page: pending queue, platform select, schedule, confirm-first publish"
       min_lines: 120
-    - path: "youxianduanshipin/web/pages/dashboard.py"
+    - path: "web/pages/dashboard.py"
       provides: "Dashboard page: follower trends, top videos, weekly report"
       min_lines: 100
-    - path: "youxianduanshipin/web/pages/settings.py"
+    - path: "web/pages/settings.py"
       provides: "Enhanced settings with lifecycle tracking table"
       min_lines: 140
-    - path: "youxianduanshipin/web/models.py"
+    - path: "web/models.py"
       provides: "Updated Pydantic models for lifecycle tracking"
       min_lines: 200
-    - path: "youxianduanshipin/tests/test_web_admin.py"
+    - path: "tests/test_web_admin.py"
       provides: "Tests for all admin pages"
       min_lines: 80
   key_links:
@@ -95,22 +95,22 @@ Output: 5 Streamlit admin page modules, updated app.py with navigation, updated 
 @.planning/ROADMAP.md
 @.planning/REQUIREMENTS.md
 
-@youxianduanshipin/web/app.py
-@youxianduanshipin/web/pages/settings.py
-@youxianduanshipin/web/auth.py
-@youxianduanshipin/web/database.py
-@youxianduanshipin/web/models.py
-@youxianduanshipin/web/routers/topics.py
-@youxianduanshipin/web/routers/scripts.py
-@youxianduanshipin/web/routers/videos.py
-@youxianduanshipin/agents/content_agent.py
-@youxianduanshipin/agents/ops_agent.py
-@youxianduanshipin/agents/production_agent.py
-@youxianduanshipin/services/publisher.py
-@youxianduanshipin/config/prompts.py
-@youxianduanshipin/config/model_registry.py
-@youxianduanshipin/scripts/init_db.py
-@youxianduanshipin/tests/conftest.py
+@web/app.py
+@web/pages/settings.py
+@web/auth.py
+@web/database.py
+@web/models.py
+@web/routers/topics.py
+@web/routers/scripts.py
+@web/routers/videos.py
+@agents/content_agent.py
+@agents/ops_agent.py
+@agents/production_agent.py
+@services/publisher.py
+@config/prompts.py
+@config/model_registry.py
+@scripts/init_db.py
+@tests/conftest.py
 
 <interfaces>
 
@@ -185,7 +185,7 @@ From scripts/init_db.py tables:
 <task type="auto">
   <name>Task 1: Update web/models.py with lifecycle tracking fields (per WEB-03, CHECK-03)</name>
   <files>
-    youxianduanshipin/web/models.py
+    web/models.py
   </files>
   <action>
     Add the following to web/models.py:
@@ -245,7 +245,7 @@ From scripts/init_db.py tables:
 <task type="auto">
   <name>Task 2: Create web/pages/create.py — topic diverge + confirm page (per WEB-05)</name>
   <files>
-    youxianduanshipin/web/pages/create.py
+    web/pages/create.py
   </files>
   <action>
     Create a Streamlit page at `web/pages/create.py` with render function `render_create_page()`.
@@ -290,7 +290,7 @@ From scripts/init_db.py tables:
     Use st.Page-compatible function signature. The function `render_create_page()` takes no arguments.
   </action>
   <verify>
-    <automated>python -c "import ast; ast.parse(open('youxianduanshipin/web/pages/create.py').read()); print('Syntax OK')"</automated>
+    <automated>python -c "import ast; ast.parse(open('web/pages/create.py').read()); print('Syntax OK')"</automated>
   </verify>
   <done>File exists, parses without syntax errors, render_create_page() is exported</done>
 </task>
@@ -298,7 +298,7 @@ From scripts/init_db.py tables:
 <task type="auto">
   <name>Task 3: Create web/pages/review.py — storyboard preview + video playback + approve/reject (per WEB-06)</name>
   <files>
-    youxianduanshipin/web/pages/review.py
+    web/pages/review.py
   </files>
   <action>
     Create a Streamlit page at `web/pages/review.py` with render function `render_review_page()`.
@@ -359,7 +359,7 @@ From scripts/init_db.py tables:
     Use `asyncio.run(get_db_connection())` for DB queries (sync context). Import `agents.ContentAgent`, `agents.ProductionAgent` for triggers.
   </action>
   <verify>
-    <automated>python -c "import ast; ast.parse(open('youxianduanshipin/web/pages/review.py').read()); print('Syntax OK')"</automated>
+    <automated>python -c "import ast; ast.parse(open('web/pages/review.py').read()); print('Syntax OK')"</automated>
   </verify>
   <done>File exists, parses without syntax errors, render_review_page() is exported</done>
 </task>
@@ -367,7 +367,7 @@ From scripts/init_db.py tables:
 <task type="auto">
   <name>Task 4: Create web/pages/publish.py — pending queue + confirm-first publish (per WEB-07, CHECK-04)</name>
   <files>
-    youxianduanshipin/web/pages/publish.py
+    web/pages/publish.py
   </files>
   <action>
     Create a Streamlit page at `web/pages/publish.py` with render function `render_publish_page()`.
@@ -420,7 +420,7 @@ From scripts/init_db.py tables:
     Handle all DB operations via `asyncio.run(get_db_connection())`. Use proper error handling for each step.
   </action>
   <verify>
-    <automated>python -c "import ast; ast.parse(open('youxianduanshipin/web/pages/publish.py').read()); print('Syntax OK')"</automated>
+    <automated>python -c "import ast; ast.parse(open('web/pages/publish.py').read()); print('Syntax OK')"</automated>
   </verify>
   <done>File exists, parses without syntax errors, render_publish_page() is exported</done>
 </task>
@@ -428,7 +428,7 @@ From scripts/init_db.py tables:
 <task type="auto">
   <name>Task 5: Create web/pages/dashboard.py — analytics trends + top videos + weekly report (per WEB-08)</name>
   <files>
-    youxianduanshipin/web/pages/dashboard.py
+    web/pages/dashboard.py
   </files>
   <action>
     Create a Streamlit page at `web/pages/dashboard.py` with render function `render_dashboard_page()`.
@@ -475,7 +475,7 @@ From scripts/init_db.py tables:
     Handle DB queries via `asyncio.run(get_db_connection())`. Import `agents.OpsAgent` for weekly report generation.
   </action>
   <verify>
-    <automated>python -c "import ast; ast.parse(open('youxianduanshipin/web/pages/dashboard.py').read()); print('Syntax OK')"</automated>
+    <automated>python -c "import ast; ast.parse(open('web/pages/dashboard.py').read()); print('Syntax OK')"</automated>
   </verify>
   <done>File exists, parses without syntax errors, render_dashboard_page() is exported</done>
 </task>
@@ -483,7 +483,7 @@ From scripts/init_db.py tables:
 <task type="auto">
   <name>Task 6: Update web/pages/settings.py with lifecycle tracking table (per WEB-09, CHECK-03)</name>
   <files>
-    youxianduanshipin/web/pages/settings.py
+    web/pages/settings.py
   </files>
   <action>
     Enhance the existing settings page at `web/pages/settings.py` (per WEB-09) by adding a lifecycle tracking section (per CHECK-03) at the bottom.
@@ -584,7 +584,7 @@ From scripts/init_db.py tables:
     Insert `_query_lifecycle_data` and `_transition_status` right after the `test_api_connection` function (after line 39), before `render_settings_page`.
   </action>
   <verify>
-    <automated>python -c "import ast; ast.parse(open('youxianduanshipin/web/pages/settings.py').read()); print('Syntax OK')"</automated>
+    <automated>python -c "import ast; ast.parse(open('web/pages/settings.py').read()); print('Syntax OK')"</automated>
   </verify>
   <done>File parses correctly, lifecycle tracking section renders after model registry, _query_lifecycle_data and _transition_status functions exist</done>
 </task>
@@ -592,7 +592,7 @@ From scripts/init_db.py tables:
 <task type="auto">
   <name>Task 7: Update web/app.py with all 5 admin pages in navigation</name>
   <files>
-    youxianduanshipin/web/app.py
+    web/app.py
   </files>
   <action>
     Update `web/app.py` to register all 5 admin pages in Streamlit navigation.
@@ -649,7 +649,7 @@ From scripts/init_db.py tables:
     Remove the old single-page import and navigation code.
   </action>
   <verify>
-    <automated>python -c "import ast; ast.parse(open('youxianduanshipin/web/app.py').read()); print('Syntax OK')"</automated>
+    <automated>python -c "import ast; ast.parse(open('web/app.py').read()); print('Syntax OK')"</automated>
   </verify>
   <done>run_streamlit() imports all 5 page functions and registers all 5 pages in st.navigation()</done>
 </task>
@@ -657,7 +657,7 @@ From scripts/init_db.py tables:
 <task type="auto">
   <name>Task 8: Create tests/test_web_admin.py — tests for all admin pages</name>
   <files>
-    youxianduanshipin/tests/test_web_admin.py
+    tests/test_web_admin.py
   </files>
   <action>
     Create test file at `tests/test_web_admin.py` with the following tests:

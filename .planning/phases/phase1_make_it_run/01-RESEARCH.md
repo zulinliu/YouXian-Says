@@ -166,7 +166,7 @@ pip install pydantic  # -> 2.13.4
 ### Recommended Project Structure
 
 ```
-youxianduanshipin/
+
 ├── config/
 │   ├── __init__.py
 │   ├── settings.py          # Pydantic Settings v2

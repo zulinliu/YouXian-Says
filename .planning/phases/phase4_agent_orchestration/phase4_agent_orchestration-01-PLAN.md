@@ -5,16 +5,16 @@ type: execute
 wave: 1
 depends_on: []
 files_modified:
-  - youxianduanshipin/agents/__init__.py
-  - youxianduanshipin/agents/content_agent.py
-  - youxianduanshipin/agents/production_agent.py
-  - youxianduanshipin/agents/ops_agent.py
-  - youxianduanshipin/agents/revision_parser.py
-  - youxianduanshipin/config/prompts.py
-  - youxianduanshipin/tests/test_agents/__init__.py
-  - youxianduanshipin/tests/test_agents/conftest.py
-  - youxianduanshipin/tests/test_agents/test_content_agent.py
-  - youxianduanshipin/tests/test_agents/test_revision_parser.py
+  - agents/__init__.py
+  - agents/content_agent.py
+  - agents/production_agent.py
+  - agents/ops_agent.py
+  - agents/revision_parser.py
+  - config/prompts.py
+  - tests/test_agents/__init__.py
+  - tests/test_agents/conftest.py
+  - tests/test_agents/test_content_agent.py
+  - tests/test_agents/test_revision_parser.py
 autonomous: true
 requirements: [AGENT-01, AGENT-02, AGENT-03, AGENT-04, TEST-05]
 
@@ -31,31 +31,31 @@ must_haves:
     - "All agent operations logged via model_logger.log_model_call()"
     - "Tests pass: `pytest tests/test_agents/ -x -v`"
   artifacts:
-    - path: "youxianduanshipin/agents/content_agent.py"
+    - path: "agents/content_agent.py"
       provides: "Topic divergence, script generation, storyboard generation with dialect injection"
       min_lines: 130
       exports: ["ContentAgent"]
-    - path: "youxianduanshipin/agents/production_agent.py"
+    - path: "agents/production_agent.py"
       provides: "Sequential production pipeline: voice -> DH -> b-roll -> compose"
       min_lines: 100
       exports: ["ProductionAgent"]
-    - path: "youxianduanshipin/agents/ops_agent.py"
+    - path: "agents/ops_agent.py"
       provides: "Publish, data collection, weekly report generation"
       min_lines: 80
       exports: ["OpsAgent"]
-    - path: "youxianduanshipin/agents/revision_parser.py"
+    - path: "agents/revision_parser.py"
       provides: "Natural language to structured operations via LLMAbstract.chat_json()"
       min_lines: 50
       exports: ["parse_revision"]
-    - path: "youxianduanshipin/agents/__init__.py"
+    - path: "agents/__init__.py"
       provides: "Clean public API exports"
       exports: ["ContentAgent", "ProductionAgent", "OpsAgent", "parse_revision"]
-    - path: "youxianduanshipin/tests/test_agents/conftest.py"
+    - path: "tests/test_agents/conftest.py"
       provides: "Shared fixtures: mock_llm, mock_image_gen, dialect_dict, knowledge_base"
-    - path: "youxianduanshipin/tests/test_agents/test_content_agent.py"
+    - path: "tests/test_agents/test_content_agent.py"
       provides: "Tests for ContentAgent: diverge_topics, generate_script, generate_storyboard"
       min_lines: 100
-    - path: "youxianduanshipin/tests/test_agents/test_revision_parser.py"
+    - path: "tests/test_agents/test_revision_parser.py"
       provides: "Tests for RevisionParser: parse, edge cases, malformed input"
       min_lines: 50
   key_links:
@@ -193,18 +193,18 @@ def project_root() -> Path:
 @.planning/ROADMAP.md
 @.planning/STATE.md
 @.planning/phases/phase4_agent_orchestration/04-RESEARCH.md
-@youxianduanshipin/web/models.py
-@youxianduanshipin/services/llm.py
-@youxianduanshipin/services/model_logger.py
-@youxianduanshipin/services/__init__.py
-@youxianduanshipin/services/voice.py
-@youxianduanshipin/services/digital_human.py
-@youxianduanshipin/services/video_gen.py
-@youxianduanshipin/services/composer.py
-@youxianduanshipin/services/publisher.py
-@youxianduanshipin/services/image_gen.py
-@youxianduanshipin/config/model_registry.py
-@youxianduanshipin/config/prompts.py
+@web/models.py
+@services/llm.py
+@services/model_logger.py
+@services/__init__.py
+@services/voice.py
+@services/digital_human.py
+@services/video_gen.py
+@services/composer.py
+@services/publisher.py
+@services/image_gen.py
+@config/model_registry.py
+@config/prompts.py
 </context>
 
 <tasks>
@@ -212,10 +212,10 @@ def project_root() -> Path:
 <task type="auto" tdd="true">
   <name>Task 1: Define agent prompt templates in config/prompts.py</name>
   <files>
-    youxianduanshipin/config/prompts.py
+    config/prompts.py
   </files>
   <action>
-    Append the following prompt template constants and add the ContentAgent prompt constants at module level in `youxianduanshipin/config/prompts.py`. Keep existing DEFAULT_SYSTEM_PROMPT and get_prompt() function. Add new constants:
+    Append the following prompt template constants and add the ContentAgent prompt constants at module level in `config/prompts.py`. Keep existing DEFAULT_SYSTEM_PROMPT and get_prompt() function. Add new constants:
 
     1. `TOPIC_DIVERGE_PROMPT` — 提示 LLM 从用户想法发散 3-5 个选题角度。参数：{user_idea}, {dialect_words}。输出 JSON: {"topics": [{"title", "pillar", "hook", "reason"}]}。pillar 取值 food/travel/culture/people/history。
     2. `SCRIPT_GENERATION_PROMPT` — 提示 LLM 生成完整脚本。参数：{topic_title}, {pillar}, {dialect_dict}, {knowledge_base}。要求：嵌入至少 3 个攸县方言词汇，30-45 秒口播稿（150-250 字），开头钩子+干货+互动引导。输出 JSON: {"content", "dialect_words": [{"word", "position"}], "subtitles": [{"start", "end", "text"}]}。
@@ -233,8 +233,8 @@ def project_root() -> Path:
 <task type="auto" tdd="true">
   <name>Task 2: Implement ContentAgent</name>
   <files>
-    youxianduanshipin/agents/__init__.py
-    youxianduanshipin/agents/content_agent.py
+    agents/__init__.py
+    agents/content_agent.py
   </files>
   <behavior>
     - diverge_topics(user_idea: str) -> list[dict]: calls text_llm.chat_json() with TOPIC_DIVERGE_PROMPT, returns result["topics"]
@@ -247,7 +247,7 @@ def project_root() -> Path:
     - Each public method wraps LLM call with model_logger.Timer and logs via log_model_call()
   </action>
   <action>
-    Create `youxianduanshipin/agents/__init__.py`:
+    Create `agents/__init__.py`:
     ```python
     """Agent orchestration package."""
     from agents.content_agent import ContentAgent
@@ -258,7 +258,7 @@ def project_root() -> Path:
     __all__ = ["ContentAgent", "ProductionAgent", "OpsAgent", "parse_revision"]
     ```
 
-    Create `youxianduanshipin/agents/content_agent.py`:
+    Create `agents/content_agent.py`:
 
     Key implementation rules per research:
     - `text_llm` is imported from `services.llm` (global instance, already initialized with function_id="text_llm")
@@ -313,9 +313,9 @@ def project_root() -> Path:
 <task type="auto" tdd="true">
   <name>Task 3: Implement ProductionAgent, OpsAgent, and RevisionParser</name>
   <files>
-    youxianduanshipin/agents/production_agent.py
-    youxianduanshipin/agents/ops_agent.py
-    youxianduanshipin/agents/revision_parser.py
+    agents/production_agent.py
+    agents/ops_agent.py
+    agents/revision_parser.py
   </files>
   <behavior>
     - ProductionAgent.produce_single(storyboard, video_id): calls voice.generate_voice() -> update status to voice_ready -> create_digital_human() -> avatar_ready -> asyncio.gather() for parallel b-roll generation -> broll_ready -> asyncio.to_thread(composer.compose_video, ...) -> composed
@@ -325,7 +325,7 @@ def project_root() -> Path:
     - RevisionParser.parse_revision(instruction, video_info): calls text_llm.chat_json() with REVISION_PARSE_PROMPT, returns {"rollback_level": "minor|major|critical", "actions": [...]}
   </action>
   <action>
-    Create `youxianduanshipin/agents/production_agent.py`:
+    Create `agents/production_agent.py`:
     - Import voice, digital_human, video_gen, composer modules directly (they are top-level async functions in services/):
       ```python
       from services import voice, digital_human, video_gen, composer
@@ -341,7 +341,7 @@ def project_root() -> Path:
     - Error handling: each step wrapped in try/except, on failure log error and set status to current state (allowing retry from same point) — per research pitfall #2 for async safety
     - Use `project_root = Path(__file__).parent.parent` for resolving bgm/branding paths
 
-    Create `youxianduanshipin/agents/ops_agent.py`:
+    Create `agents/ops_agent.py`:
     ```python
     import json
     from services.publisher import publish
@@ -370,7 +370,7 @@ def project_root() -> Path:
     ```
     - log_model_call uses "ops" as task_type and model.id/provider from snapshot
 
-    Create `youxianduanshipin/agents/revision_parser.py`:
+    Create `agents/revision_parser.py`:
     ```python
     import json
     from services.llm import text_llm
@@ -429,10 +429,10 @@ print('All agent classes importable and async')
 <task type="auto" tdd="true">
   <name>Task 4: Create test infrastructure and agent tests</name>
   <files>
-    youxianduanshipin/tests/test_agents/__init__.py
-    youxianduanshipin/tests/test_agents/conftest.py
-    youxianduanshipin/tests/test_agents/test_content_agent.py
-    youxianduanshipin/tests/test_agents/test_revision_parser.py
+    tests/test_agents/__init__.py
+    tests/test_agents/conftest.py
+    tests/test_agents/test_content_agent.py
+    tests/test_agents/test_revision_parser.py
   </files>
   <behavior>
     - test_content_agent.py::test_diverge_topics: mock text_llm.chat_json to return topics list, verify ContentAgent.diverge_topics returns parsed list
@@ -442,9 +442,9 @@ print('All agent classes importable and async')
     - test_revision_parser.py::test_parse_revision_empty: handle edge case where LLM returns empty actions list
   </action>
   <action>
-    Create `youxianduanshipin/tests/test_agents/__init__.py` — empty package marker.
+    Create `tests/test_agents/__init__.py` — empty package marker.
 
-    Create `youxianduanshipin/tests/test_agents/conftest.py`:
+    Create `tests/test_agents/conftest.py`:
     ```python
     """Shared fixtures for agent tests."""
     import json
@@ -493,7 +493,7 @@ print('All agent classes importable and async')
         return "# 攸县知识库\n\n## 美食\n攸县米粉是当地特色。"
     ```
 
-    Create `youxianduanshipin/tests/test_agents/test_content_agent.py`:
+    Create `tests/test_agents/test_content_agent.py`:
 
     - Mark all with pytest.mark.asyncio
     - Set PROJECT_ROOT based on conftest fixture or class constant
@@ -519,7 +519,7 @@ print('All agent classes importable and async')
     - `test_generate_script`: mock_llm.chat_json.return_value = script dict; call agent.generate_script(topic, video_id=1); assert "content" in result; assert mock_db.execute.called (DB insert and status update)
     - `test_generate_storyboard`: mock_llm.chat_json.return_value = {"shots": [{"shot_number": 1, "type": "digital_human", "visual_description": "A person talking", "duration": 5, "need_reference": False, "start_time": 0}, {"shot_number": 2, "type": "b_roll", "visual_description": "Bowl of rice noodles", "duration": 4, "need_reference": True, "start_time": 5}]}; call agent.generate_storyboard(script, video_id=1); assert len(shots) == 2; assert shots[1]["reference_image"] is not None (image_gen called for shot with need_reference=True)
 
-    Create `youxianduanshipin/tests/test_agents/test_revision_parser.py`:
+    Create `tests/test_agents/test_revision_parser.py`:
 
     - Mark all with pytest.mark.asyncio
     - Patch both text_llm and ModelRegistry.snapshot as above

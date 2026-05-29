@@ -5,15 +5,15 @@ subsystem: database
 tags: [database, sqlite, pydantic, schema]
 requires: []
 provides: [async-db-connection, pydantic-models, db-init-script]
-affects: [youxianduanshipin/web/database.py, youxianduanshipin/web/models.py, youxianduanshipin/scripts/init_db.py]
+affects: [web/database.py, web/models.py, scripts/init_db.py]
 tech-stack:
   added: [aiosqlite]
   patterns: [async-generator-for-db-depends, pydantic-v2-from-attributes]
 key-files:
   created:
-    - youxianduanshipin/web/database.py
-    - youxianduanshipin/web/models.py
-    - youxianduanshipin/scripts/init_db.py
+    - web/database.py
+    - web/models.py
+    - scripts/init_db.py
   modified: []
 decisions:
   - "aiosqlite for async SQLite (not sync sqlite3) to avoid blocking FastAPI event loop"
@@ -102,9 +102,9 @@ None.
 ## Self-Check: PASSED
 
 All created files verified:
-- PASS: youxianduanshipin/web/database.py (36 lines, min 15)
-- PASS: youxianduanshipin/web/models.py (193 lines, min 40)
-- PASS: youxianduanshipin/scripts/init_db.py (149 lines, min 80)
+- PASS: web/database.py (36 lines, min 15)
+- PASS: web/models.py (193 lines, min 40)
+- PASS: scripts/init_db.py (149 lines, min 80)
 - PASS: init_db creates all 8 tables + WAL mode
 - PASS: get_async_db() returns working aiosqlite connection
 - PASS: All models import and VALID_TRANSITIONS has 14 entries

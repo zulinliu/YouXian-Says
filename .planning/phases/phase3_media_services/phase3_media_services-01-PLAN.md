@@ -5,30 +5,30 @@ type: execute
 wave: 1
 depends_on: []
 files_modified:
-  - youxianduanshipin/services/__init__.py
-  - youxianduanshipin/services/voice.py
-  - youxianduanshipin/services/image_gen.py
-  - youxianduanshipin/services/digital_human.py
-  - youxianduanshipin/services/video_gen.py
-  - youxianduanshipin/services/publisher.py
-  - youxianduanshipin/services/model_logger.py
-  - youxianduanshipin/data/dialect_dict.json
-  - youxianduanshipin/data/knowledge_base.md
-  - youxianduanshipin/tests/conftest.py
-  - youxianduanshipin/tests/test_services/conftest.py
-  - youxianduanshipin/tests/test_services/test_voice.py
-  - youxianduanshipin/tests/test_services/test_image_gen.py
-  - youxianduanshipin/tests/test_services/test_digital_human.py
-  - youxianduanshipin/tests/test_services/test_video_gen.py
-  - youxianduanshipin/tests/test_services/test_publisher.py
-  - youxianduanshipin/tests/test_data.py
+  - services/__init__.py
+  - services/voice.py
+  - services/image_gen.py
+  - services/digital_human.py
+  - services/video_gen.py
+  - services/publisher.py
+  - services/model_logger.py
+  - data/dialect_dict.json
+  - data/knowledge_base.md
+  - tests/conftest.py
+  - tests/test_services/conftest.py
+  - tests/test_services/test_voice.py
+  - tests/test_services/test_image_gen.py
+  - tests/test_services/test_digital_human.py
+  - tests/test_services/test_video_gen.py
+  - tests/test_services/test_publisher.py
+  - tests/test_data.py
 autonomous: true
 requirements: [SVC-02, SVC-03, SVC-04, SVC-05, SVC-07, DATA-06, DATA-07, CHECK-07]
 user_setup:
   - service: playwright
     why: "Browser automation for WeChat/Xiaohongshu publishing"
     env_vars: []
-    cli_command: "cd youxianduanshipin && playwright install chromium"
+    cli_command: "playwright install chromium"
 must_haves:
   truths:
     - "System can generate dialect voiceover audio via MiMo VoiceClone (or mock if no API key)"
@@ -40,28 +40,28 @@ must_haves:
     - "Knowledge base MD exists with YouXian topic references"
     - "Every model call (voice/image/digital_human/video/publisher) is logged to model_call_logs table"
   artifacts:
-    - path: "youxianduanshipin/services/voice.py"
+    - path: "services/voice.py"
       provides: "Strategy-dispatched voice generation with all providers"
       min_lines: 120
-    - path: "youxianduanshipin/services/image_gen.py"
+    - path: "services/image_gen.py"
       provides: "Image generation via GPT-image-2 relay + fallbacks"
       min_lines: 80
-    - path: "youxianduanshipin/services/digital_human.py"
+    - path: "services/digital_human.py"
       provides: "Digital human with mock/local/manual/heygen/tavus/d-id/akool modes"
       min_lines: 150
-    - path: "youxianduanshipin/services/video_gen.py"
+    - path: "services/video_gen.py"
       provides: "B-roll video generation with mock/local/runway/veo/kling/luma/pika/hailuo modes"
       min_lines: 150
-    - path: "youxianduanshipin/services/publisher.py"
+    - path: "services/publisher.py"
       provides: "Multi-platform publishing via Douyin API + WeChat Playwright"
       min_lines: 120
-    - path: "youxianduanshipin/services/model_logger.py"
+    - path: "services/model_logger.py"
       provides: "Shared model call logging utility"
       min_lines: 40
-    - path: "youxianduanshipin/data/dialect_dict.json"
+    - path: "data/dialect_dict.json"
       provides: "Dialect dictionary with word entries"
       min_lines: 10
-    - path: "youxianduanshipin/data/knowledge_base.md"
+    - path: "data/knowledge_base.md"
       provides: "YouXian knowledge base for content agent"
       min_lines: 50
   key_links:
@@ -114,11 +114,11 @@ Output: Six service modules (voice, image_gen, digital_human, video_gen, publish
 @.planning/REQUIREMENTS.md
 @.planning/phases/phase3_media_services/03-RESEARCH.md
 
-@youxianduanshipin/services/__init__.py
-@youxianduanshipin/services/composer.py
-@youxianduanshipin/config/model_registry.py
-@youxianduanshipin/web/database.py
-@youxianduanshipin/tests/conftest.py
+@services/__init__.py
+@services/composer.py
+@config/model_registry.py
+@web/database.py
+@tests/conftest.py
 
 <interfaces>
 <!-- Key contracts the executor needs. Extracted from codebase. -->
@@ -197,8 +197,8 @@ INSERT INTO model_call_logs (job_id, task_type, model_id, provider, channel,
 <task type="auto">
   <name>Task 1: Create shared model_logger.py and update services/__init__.py with shared httpx client</name>
   <files>
-    youxianduanshipin/services/model_logger.py
-    youxianduanshipin/services/__init__.py
+    services/model_logger.py
+    services/__init__.py
   </files>
   <action>
 
@@ -213,12 +213,12 @@ Update `services/__init__.py` to export a shared `get_http_client()` singleton:
 
 - Move the `_shared_client` / `get_http_client()` pattern from the tech spec (section 4.3 code example) into `services/__init__.py`.
 - The shared client is an `httpx.AsyncClient` with `timeout=httpx.Timeout(120.0, connect=10.0)` and `limits=httpx.Limits(max_connections=20, max_keepalive_connections=10)`.
-- Import and re-export `get_http_client` so all service modules can do `from youxianduanshipin.services import get_http_client`.
+- Import and re-export `get_http_client` so all service modules can do `from services import get_http_client`.
 
 Import both in `__init__.py` so they are accessible as `from services import get_http_client, log_model_call`.
 </action>
   <verify>
-    <automated>cd youxianduanshipin && python -c "from services import get_http_client, log_model_call; print('OK')"</automated>
+    <automated>python -c "from services import get_http_client, log_model_call; print('OK')"</automated>
   </verify>
   <done>model_logger.py created with log_model_call function; __init__.py exports shared httpx client and logger</done>
 </task>
@@ -226,11 +226,11 @@ Import both in `__init__.py` so they are accessible as `from services import get
 <task type="auto">
   <name>Task 2: Create voice.py with strategy-pattern dispatch and image_gen.py with GPT-image-2 relay + fallbacks</name>
   <files>
-    youxianduanshipin/services/voice.py
-    youxianduanshipin/services/image_gen.py
-    youxianduanshipin/tests/test_services/conftest.py
-    youxianduanshipin/tests/test_services/test_voice.py
-    youxianduanshipin/tests/test_services/test_image_gen.py
+    services/voice.py
+    services/image_gen.py
+    tests/test_services/conftest.py
+    tests/test_services/test_voice.py
+    tests/test_services/test_image_gen.py
   </files>
   <action>
 
@@ -285,7 +285,7 @@ Create `tests/test_services/test_image_gen.py`:
 - `test_mock_mode`: Calls `generate_image` with mock provider, verifies output file exists.
 </action>
   <verify>
-    <automated>cd youxianduanshipin && python -m pytest tests/test_services/test_voice.py tests/test_services/test_image_gen.py -x -q 2>&1 | tail -5</automated>
+    <automated>python -m pytest tests/test_services/test_voice.py tests/test_services/test_image_gen.py -x -q 2>&1 | tail -5</automated>
   </verify>
   <done>voice.py and image_gen.py created with strategy dispatch; tests pass for both modules</done>
 </task>
@@ -293,12 +293,12 @@ Create `tests/test_services/test_image_gen.py`:
 <task type="auto">
   <name>Task 3: Create digital_human.py, video_gen.py, and publisher.py with all modes</name>
   <files>
-    youxianduanshipin/services/digital_human.py
-    youxianduanshipin/services/video_gen.py
-    youxianduanshipin/services/publisher.py
-    youxianduanshipin/tests/test_services/test_digital_human.py
-    youxianduanshipin/tests/test_services/test_video_gen.py
-    youxianduanshipin/tests/test_services/test_publisher.py
+    services/digital_human.py
+    services/video_gen.py
+    services/publisher.py
+    tests/test_services/test_digital_human.py
+    tests/test_services/test_video_gen.py
+    tests/test_services/test_publisher.py
   </files>
   <action>
 
@@ -398,7 +398,7 @@ Create `tests/test_services/test_publisher.py`:
 - `test_all_platforms_registered`: Verifies PLATFORM_PROVIDERS has entries for douyin, kuaishou, weixin, xiaohongshu.
 </action>
   <verify>
-    <automated>cd youxianduanshipin && python -m pytest tests/test_services/test_digital_human.py tests/test_services/test_video_gen.py tests/test_services/test_publisher.py -x -q 2>&1 | tail -5</automated>
+    <automated>python -m pytest tests/test_services/test_digital_human.py tests/test_services/test_video_gen.py tests/test_services/test_publisher.py -x -q 2>&1 | tail -5</automated>
   </verify>
   <done>digital_human.py, video_gen.py, publisher.py created with all modes; all service tests pass</done>
 </task>
@@ -406,9 +406,9 @@ Create `tests/test_services/test_publisher.py`:
 <task type="auto">
   <name>Task 4: Create dialect_dict.json, knowledge_base.md, and data format tests</name>
   <files>
-    youxianduanshipin/data/dialect_dict.json
-    youxianduanshipin/data/knowledge_base.md
-    youxianduanshipin/tests/test_data.py
+    data/dialect_dict.json
+    data/knowledge_base.md
+    tests/test_data.py
   </files>
   <action>
 
@@ -453,7 +453,7 @@ Create `tests/test_data.py`:
 - `test_knowledge_base_min_length`: Verifies at least 50 lines of content.
 </action>
   <verify>
-    <automated>cd youxianduanshipin && python -m pytest tests/test_data.py -x -q 2>&1 | tail -5</automated>
+    <automated>python -m pytest tests/test_data.py -x -q 2>&1 | tail -5</automated>
   </verify>
   <done>dialect_dict.json with 20+ entries and knowledge_base.md created; data format tests pass</done>
 </task>
@@ -462,9 +462,9 @@ Create `tests/test_data.py`:
 
 <verification>
 **Per-plan verification:**
-1. `cd youxianduanshipin && python -c "from services import get_http_client, log_model_call; print('imports OK')"` -- verifies shared infrastructure
-2. `cd youxianduanshipin && python -m pytest tests/test_services/ -x -q` -- all service tests pass
-3. `cd youxianduanshipin && python -m pytest tests/test_data.py -x -q` -- data format tests pass
+1. `python -c "from services import get_http_client, log_model_call; print('imports OK')"` -- verifies shared infrastructure
+2. `python -m pytest tests/test_services/ -x -q` -- all service tests pass
+3. `python -m pytest tests/test_data.py -x -q` -- data format tests pass
 4. Verify `provider_fn = VOICE_PROVIDERS.get(model.id)` pattern is used (not hardcoded if-elif chain for dispatch)
 5. Verify no MiniMax model is set as default active_id in any provider -- MiniMax providers are registered but only reached through fallback chain
 6. Verify all service modules import and use `get_http_client` from `services.__init__` (not creating their own clients)

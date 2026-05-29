@@ -5,19 +5,19 @@ type: execute
 wave: 1
 depends_on: []
 files_modified:
-  - youxianduanshipin/web/database.py
-  - youxianduanshipin/web/models.py
-  - youxianduanshipin/web/auth.py
-  - youxianduanshipin/web/routers/__init__.py
-  - youxianduanshipin/web/routers/auth.py
-  - youxianduanshipin/web/routers/topics.py
-  - youxianduanshipin/web/routers/scripts.py
-  - youxianduanshipin/web/routers/videos.py
-  - youxianduanshipin/services/llm.py
-  - youxianduanshipin/scripts/init_db.py
-  - youxianduanshipin/web/app.py
-  - youxianduanshipin/requirements.txt
-  - youxianduanshipin/data/.gitkeep
+  - web/database.py
+  - web/models.py
+  - web/auth.py
+  - web/routers/__init__.py
+  - web/routers/auth.py
+  - web/routers/topics.py
+  - web/routers/scripts.py
+  - web/routers/videos.py
+  - services/llm.py
+  - scripts/init_db.py
+  - web/app.py
+  - requirements.txt
+  - data/.gitkeep
 autonomous: true
 requirements:
   - DB-01
@@ -42,34 +42,34 @@ must_haves:
     - "User can list/create topics and scripts via API routes with valid JWT"
     - "Video status transitions are enforced: invalid transitions return error"
   artifacts:
-    - path: "youxianduanshipin/web/database.py"
+    - path: "web/database.py"
       provides: "Async SQLite connection with WAL mode"
       min_lines: 15
-    - path: "youxianduanshipin/web/models.py"
+    - path: "web/models.py"
       provides: "Pydantic request/response models"
       min_lines: 40
-    - path: "youxianduanshipin/web/auth.py"
+    - path: "web/auth.py"
       provides: "Streamlit check_auth() + FastAPI JWT verify_token() using OAuth2PasswordBearer"
       min_lines: 40
-    - path: "youxianduanshipin/web/routers/auth.py"
+    - path: "web/routers/auth.py"
       provides: "POST /api/auth/token JWT issuance endpoint"
       min_lines: 30
-    - path: "youxianduanshipin/web/routers/topics.py"
+    - path: "web/routers/topics.py"
       provides: "Topics CRUD API"
       min_lines: 30
-    - path: "youxianduanshipin/web/routers/scripts.py"
+    - path: "web/routers/scripts.py"
       provides: "Scripts CRUD API"
       min_lines: 30
-    - path: "youxianduanshipin/web/routers/videos.py"
+    - path: "web/routers/videos.py"
       provides: "Videos API with state machine enforcement"
       min_lines: 40
-    - path: "youxianduanshipin/services/llm.py"
+    - path: "services/llm.py"
       provides: "LLMAbstract class with retry and JSON mode"
       min_lines: 60
-    - path: "youxianduanshipin/scripts/init_db.py"
+    - path: "scripts/init_db.py"
       provides: "Database initialization script creating all 8 tables with WAL mode"
       min_lines: 80
-    - path: "youxianduanshipin/web/app.py"
+    - path: "web/app.py"
       provides: "FastAPI + Streamlit combined entrypoint with lifespan"
       min_lines: 40
   key_links:
@@ -97,7 +97,7 @@ must_haves:
 
 **Purpose:** 使攸县有话说平台具备持久化能力、API 基础和 LLM 统一调用层，为后续媒体服务和 Agent 编排提供平台基础。
 
-**输出文件:** 见 files_modified 列出的所有文件。所有路径相对于 `youxianduanshipin/` 子目录。
+**输出文件:** 见 files_modified 列出的所有文件。所有路径相对于 `` 子目录。
 </objective>
 
 <execution_context>
@@ -140,13 +140,13 @@ Existing tests/conftest.py:
 <task type="auto">
 <name>Task 1: Create web/database.py — Async SQLite connection with WAL mode</name>
 <files>
-youxianduanshipin/web/database.py
+web/database.py
 </files>
 <action>
 创建异步 SQLite 数据库连接模块，使用 aiosqlite (不是 sqlite3，sync sqlite3 会阻塞 FastAPI 事件循环)。
 
 关键要求：
-- 使用 `import aiosqlite`，数据库路径 `data/youxian.db`（相对于 youxianduanshipin/ 目录）
+- 使用 `import aiosqlite`，数据库路径 `data/youxian.db`（相对于  目录）
 - 提供 `get_async_db()` 异步生成器，作为 FastAPI Depends，每次请求新建连接
 - 设置 PRAGMA: `journal_mode=WAL`, `busy_timeout=5000`, `foreign_keys=ON`
 - 设置 `row_factory = aiosqlite.Row` 使结果可 dict 化
@@ -155,7 +155,7 @@ youxianduanshipin/web/database.py
 验证：文件存在，可被 `pytest` 导入且返回可工作连接。
 </action>
 <verify>
-<automated>cd youxianduanshipin && python -c "import asyncio; from web.database import get_async_db; async def t(): async for db in get_async_db(): r=await db.execute('SELECT 1'); print(dict(await r.fetchone())); break; asyncio.run(t())"</automated>
+<automated>python -c "import asyncio; from web.database import get_async_db; async def t(): async for db in get_async_db(): r=await db.execute('SELECT 1'); print(dict(await r.fetchone())); break; asyncio.run(t())"</automated>
 </verify>
 <done>
 `get_async_db()` 异步生成器返回 aiosqlite 连接，WAL mode 已启用，row_factory 为 aiosqlite.Row，`SELECT 1` 返回 `{'1': 1}` 字典。
@@ -165,7 +165,7 @@ youxianduanshipin/web/database.py
 <task type="auto">
 <name>Task 2: Create web/models.py — Pydantic request/response models</name>
 <files>
-youxianduanshipin/web/models.py
+web/models.py
 </files>
 <action>
 使用 Pydantic v2 创建 API 请求/响应模型。不需要 dataclass（RESEARCH.md 的 pydantic v2 方式）。
@@ -190,7 +190,7 @@ youxianduanshipin/web/models.py
 所有 BaseModel 使用 model_config = {"from_attributes": True} 支持从数据库行创建。
 </action>
 <verify>
-<automated>cd youxianduanshipin && python -c "from web.models import VideoStatus, VideoCreate, VideoResponse, TopicCreate, ScriptCreate, TokenResponse, VALID_TRANSITIONS; assert VideoStatus.idea.value == 'idea'; assert len(VALID_TRANSITIONS) > 5"</automated>
+<automated>python -c "from web.models import VideoStatus, VideoCreate, VideoResponse, TopicCreate, ScriptCreate, TokenResponse, VALID_TRANSITIONS; assert VideoStatus.idea.value == 'idea'; assert len(VALID_TRANSITIONS) > 5"</automated>
 </verify>
 <done>
 所有 Pydantic 模型可导入，枚举状态完整，状态转换字典包含所有 14 个状态的正确转换。
@@ -200,8 +200,8 @@ youxianduanshipin/web/models.py
 <task type="auto">
 <name>Task 3: Create scripts/init_db.py — Database initialization script</name>
 <files>
-youxianduanshipin/scripts/init_db.py
-youxianduanshipin/data/.gitkeep
+scripts/init_db.py
+data/.gitkeep
 </files>
 <action>
 创建数据库初始化脚本，使用 sync sqlite3（这是独立脚本，不在 FastAPI 事件循环中运行）。
@@ -230,4 +230,4 @@ youxianduanshipin/data/.gitkeep
 验证：运行脚本后检查数据库存在且表已创建。
 </action>
 <verify>
-<automated>cd youxianduanshipin && python scripts/init_db.py && python -c "import sqlite3; c=sqlite3.connect('data/youxian.db'); c.row_factory=sqlite3.Row; tables=[r['name'] for r in c.execute(\"SELECT name FROM sqlite_master WHERE type='table'\").fetchall()]; assert 'videos' in tables; assert 'topics' in tables; assert 'scripts' in tables; assert 'storyboards' in tables; assert 'model_call_logs' in tables; assert 'publish_queue' in tables; assert 'analytics_data' in tables; assert 'dialect_fixes' in tables; print('All 8 tables created'); wal=c.execute('PRAGMA journal_mode').fetchone()[0]; print(f'WAL mode: {wal}')"
+<automated>python scripts/init_db.py && python -c "import sqlite3; c=sqlite3.connect('data/youxian.db'); c.row_factory=sqlite3.Row; tables=[r['name'] for r in c.execute(\"SELECT name FROM sqlite_master WHERE type='table'\").fetchall()]; assert 'videos' in tables; assert 'topics' in tables; assert 'scripts' in tables; assert 'storyboards' in tables; assert 'model_call_logs' in tables; assert 'publish_queue' in tables; assert 'analytics_data' in tables; assert 'dialect_fixes' in tables; print('All 8 tables created'); wal=c.execute('PRAGMA journal_mode').fetchone()[0]; print(f'WAL mode: {wal}')"

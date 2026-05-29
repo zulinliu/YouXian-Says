@@ -23,15 +23,15 @@ tech-stack:
 
 key-files:
   created:
-    - youxianduanshipin/services/composer.py
-    - youxianduanshipin/services/__init__.py
-    - youxianduanshipin/templates/branding/intro.mp4
-    - youxianduanshipin/templates/branding/outro.mp4
-    - youxianduanshipin/templates/branding/watermark.png
-    - youxianduanshipin/templates/branding/avatar_placeholder.png
-    - youxianduanshipin/templates/branding/broll_placeholder.png
-    - youxianduanshipin/templates/music/bgm.mp3
-    - youxianduanshipin/output/final/mock_demo.mp4
+    - services/composer.py
+    - services/__init__.py
+    - templates/branding/intro.mp4
+    - templates/branding/outro.mp4
+    - templates/branding/watermark.png
+    - templates/branding/avatar_placeholder.png
+    - templates/branding/broll_placeholder.png
+    - templates/music/bgm.mp3
+    - output/final/mock_demo.mp4
   modified: []
 
 requirements-completed: [SVC-06]

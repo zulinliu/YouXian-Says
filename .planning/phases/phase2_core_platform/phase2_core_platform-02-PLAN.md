@@ -5,16 +5,16 @@ type: execute
 wave: 1
 depends_on: []
 files_modified:
-  - youxianduanshipin/services/llm.py
-  - youxianduanshipin/web/auth.py
-  - youxianduanshipin/web/routers/__init__.py
-  - youxianduanshipin/web/routers/auth.py
-  - youxianduanshipin/web/routers/topics.py
-  - youxianduanshipin/web/routers/scripts.py
-  - youxianduanshipin/web/routers/videos.py
-  - youxianduanshipin/web/app.py
-  - youxianduanshipin/requirements.txt
-  - youxianduanshipin/data/.gitkeep
+  - services/llm.py
+  - web/auth.py
+  - web/routers/__init__.py
+  - web/routers/auth.py
+  - web/routers/topics.py
+  - web/routers/scripts.py
+  - web/routers/videos.py
+  - web/app.py
+  - requirements.txt
+  - data/.gitkeep
 autonomous: true
 requirements:
   - DB-01
@@ -34,44 +34,44 @@ must_haves:
     - "LLM service is importable and ModelRegistry snapshot routing works"
     - "FastAPI app starts with lifespan context manager and serves both Streamlit and API"
   artifacts:
-    - path: "youxianduanshipin/services/llm.py"
+    - path: "services/llm.py"
       provides: "LLMAbstract class with chat, chat_json, retry"
       exports:
         - "LLMAbstract"
         - "text_llm"
         - "multimodal_llm"
       min_lines: 60
-    - path: "youxianduanshipin/web/auth.py"
+    - path: "web/auth.py"
       provides: "Streamlit check_auth() + FastAPI verify_token() + FastAPI login_for_access_token()"
       exports:
         - "check_auth"
         - "verify_token"
         - "oauth2_scheme"
       min_lines: 60
-    - path: "youxianduanshipin/web/routers/__init__.py"
+    - path: "web/routers/__init__.py"
       provides: "Router package init"
       min_lines: 1
-    - path: "youxianduanshipin/web/routers/auth.py"
+    - path: "web/routers/auth.py"
       provides: "POST /api/auth/token endpoint"
       exports:
         - "router"
       min_lines: 30
-    - path: "youxianduanshipin/web/routers/topics.py"
+    - path: "web/routers/topics.py"
       provides: "Topics CRUD endpoints"
       exports:
         - "router"
       min_lines: 50
-    - path: "youxianduanshipin/web/routers/scripts.py"
+    - path: "web/routers/scripts.py"
       provides: "Scripts CRUD endpoints"
       exports:
         - "router"
       min_lines: 50
-    - path: "youxianduanshipin/web/routers/videos.py"
+    - path: "web/routers/videos.py"
       provides: "Videos API with state machine enforcement"
       exports:
         - "router"
       min_lines: 60
-    - path: "youxianduanshipin/web/app.py"
+    - path: "web/app.py"
       provides: "Combined FastAPI + Streamlit entrypoint"
       min_lines: 50
   key_links:
@@ -95,7 +95,7 @@ must_haves:
 
 **Purpose:** 提供 LLM 统一调用层（含重试和 JSON 模式）、JWT 保护 API 路由（认证/选题/脚本/视频 CRUD + 状态机）和组合服务入口点。
 
-**输出文件:** 见 files_modified 列表。所有路径相对于 `youxianduanshipin/` 子目录。
+**输出文件:** 见 files_modified 列表。所有路径相对于 `` 子目录。
 </objective>
 
 <execution_context>
@@ -149,7 +149,7 @@ From existing tests/conftest.py:
 <task type="auto">
 <name>Task 1: Create services/llm.py — LLMAbstract unified service with retry and JSON mode</name>
 <files>
-youxianduanshipin/services/llm.py
+services/llm.py
 </files>
 <action>
 创建 LLM 统一调用服务。遵循 RESEARCH.md Pattern 4 的代码（使用 ModelRegistry.snapshot 进行模型路由，不使用硬编码配置）。
@@ -180,4 +180,4 @@ youxianduanshipin/services/llm.py
 需要将 `aiosqlite>=0.20.0` 和 `pyjwt>=2.8.0` 添加到 requirements.txt（如果尚未存在）。
 </action>
 <verify>
-<automated>cd youxianduanshipin && python -c "from services.llm import LLMAbstract, text_llm, multimodal_llm; assert isinstance(text_llm, LLMAbstract); assert text_llm.function_id == 'text_llm'; assert multimodal_llm.function_id == 'multimodal'"
+<automated>python -c "from services.llm import LLMAbstract, text_llm, multimodal_llm; assert isinstance(text_llm, LLMAbstract); assert text_llm.function_id == 'text_llm'; assert multimodal_llm.function_id == 'multimodal'"

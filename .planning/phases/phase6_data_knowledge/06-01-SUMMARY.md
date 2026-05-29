@@ -12,15 +12,15 @@ tech-stack:
   patterns: ["CLI argparser", "idempotent build", "async daily pipeline"]
 key-files:
   created:
-    - youxianduanshipin/scripts/build_knowledge.py
-    - youxianduanshipin/scripts/create_avatar.py
-    - youxianduanshipin/scripts/eval_models.py
-    - youxianduanshipin/scripts/daily_run.py
-    - youxianduanshipin/data/voice_authorization.json
+    - scripts/build_knowledge.py
+    - scripts/create_avatar.py
+    - scripts/eval_models.py
+    - scripts/daily_run.py
+    - data/voice_authorization.json
   modified:
-    - youxianduanshipin/config/prompts.py
-    - youxianduanshipin/agents/content_agent.py
-    - youxianduanshipin/agents/ops_agent.py
+    - config/prompts.py
+    - agents/content_agent.py
+    - agents/ops_agent.py
 decisions:
   - "Fact risk tags injected via prompt instruction (config/prompts.py) with default fallback in content_agent.py"
   - "Voice authorization stored as JSON data file, parsed at runtime by voice service (no separate authorization service)"
@@ -51,7 +51,7 @@ metrics:
 ## Task Breakdown
 
 ### Task 1-4: Scripts Creation
-Created 4 CLI scripts in `youxianduanshipin/scripts/`:
+Created 4 CLI scripts in `scripts/`:
 - `build_knowledge.py` — Idempotent knowledge base builder from 5 sections (geography, food, customs, history, dialect) with source tags
 - `create_avatar.py` — Virtual persona "YouYou" creator with FFmpeg avatar placeholder and mode flag
 - `eval_models.py` — Async model evaluation across configured models (all calls fail gracefully without API keys)

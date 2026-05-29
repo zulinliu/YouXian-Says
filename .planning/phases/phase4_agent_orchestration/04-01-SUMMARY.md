@@ -11,17 +11,17 @@ RevisionParser) that coordinates LLM, media, and publishing services.
 
 | File | Status | Description |
 |------|--------|-------------|
-| `youxianduanshipin/agents/__init__.py` | Created | Package init, exports all agents |
-| `youxianduanshipin/agents/content_agent.py` | Created | ContentAgent — topic diverge, script gen, storyboard |
-| `youxianduanshipin/agents/production_agent.py` | Created | ProductionAgent — voice DH b-roll compose pipeline |
-| `youxianduanshipin/agents/ops_agent.py` | Created | OpsAgent — publish, data collection, weekly report |
-| `youxianduanshipin/agents/revision_parser.py` | Created | Parse NL feedback to structured actions |
-| `youxianduanshipin/config/prompts.py` | Modified | Added 5 agent-specific prompts |
-| `youxianduanshipin/data/__init__.py` | Created | Loads DIALECT_DICT and KNOWLEDGE_BASE at import |
-| `youxianduanshipin/tests/test_agents/__init__.py` | Created | Empty package init |
-| `youxianduanshipin/tests/test_agents/conftest.py` | Created | Shared fixtures (mock_dialect_dict, sample_topic, sample_script) |
-| `youxianduanshipin/tests/test_agents/test_content_agent.py` | Created | 3 tests for ContentAgent structure |
-| `youxianduanshipin/tests/test_agents/test_revision_parser.py` | Created | 2 tests for parse_revision (mocked LLM) |
+| `agents/__init__.py` | Created | Package init, exports all agents |
+| `agents/content_agent.py` | Created | ContentAgent — topic diverge, script gen, storyboard |
+| `agents/production_agent.py` | Created | ProductionAgent — voice DH b-roll compose pipeline |
+| `agents/ops_agent.py` | Created | OpsAgent — publish, data collection, weekly report |
+| `agents/revision_parser.py` | Created | Parse NL feedback to structured actions |
+| `config/prompts.py` | Modified | Added 5 agent-specific prompts |
+| `data/__init__.py` | Created | Loads DIALECT_DICT and KNOWLEDGE_BASE at import |
+| `tests/test_agents/__init__.py` | Created | Empty package init |
+| `tests/test_agents/conftest.py` | Created | Shared fixtures (mock_dialect_dict, sample_topic, sample_script) |
+| `tests/test_agents/test_content_agent.py` | Created | 3 tests for ContentAgent structure |
+| `tests/test_agents/test_revision_parser.py` | Created | 2 tests for parse_revision (mocked LLM) |
 
 ## Architecture
 

@@ -19,17 +19,17 @@ Created 5 Streamlit admin pages (create, review, publish, dashboard, settings) w
 
 ### Created
 
-- `youxianduanshipin/web/pages/create.py` — Topic co-creation page (idea input, AI diverge, topic confirm)
-- `youxianduanshipin/web/pages/review.py` — Review center page (pending/reviewed tabs, structured review form)
-- `youxianduanshipin/web/pages/publish.py` — Publish management page (platform select, schedule, confirm-first)
-- `youxianduanshipin/web/pages/dashboard.py` — Data dashboard page (stats row, trend chart, weekly report)
-- `youxianduanshipin/tests/test_web_admin.py` — Import and callable tests for all 7 pages + entrypoint
+- `web/pages/create.py` — Topic co-creation page (idea input, AI diverge, topic confirm)
+- `web/pages/review.py` — Review center page (pending/reviewed tabs, structured review form)
+- `web/pages/publish.py` — Publish management page (platform select, schedule, confirm-first)
+- `web/pages/dashboard.py` — Data dashboard page (stats row, trend chart, weekly report)
+- `tests/test_web_admin.py` — Import and callable tests for all 7 pages + entrypoint
 
 ### Modified
 
-- `youxianduanshipin/web/app.py` — Updated navigation from 1 page to all 5 pages via `st.Page` + `st.navigation`
-- `youxianduanshipin/web/pages/settings.py` — Added lifecycle tracking section with video status table
-- `youxianduanshipin/web/models.py` — Added lifecycle and review Pydantic models (VideoLifecycleResponse, ReviewAction, ReviewResponse, PublishTaskStatus, WeeklyReportResponse)
+- `web/app.py` — Updated navigation from 1 page to all 5 pages via `st.Page` + `st.navigation`
+- `web/pages/settings.py` — Added lifecycle tracking section with video status table
+- `web/models.py` — Added lifecycle and review Pydantic models (VideoLifecycleResponse, ReviewAction, ReviewResponse, PublishTaskStatus, WeeklyReportResponse)
 
 ## Decisions Made
 
@@ -61,9 +61,9 @@ None — plan executed exactly as written.
 
 ## Known Stubs
 
-- `youxianduanshipin/web/pages/dashboard.py:22` — Dashboard charts and stats use hardcoded zeros; real data collection deferred
-- `youxianduanshipin/web/pages/publish.py:14` — Publish queue shows "暂无待发布视频" info; real publish queue integration deferred
-- `youxianduanshipin/web/pages/review.py:14` — Review page shows "暂无待审核视频" info; real review workflow deferred
+- `web/pages/dashboard.py:22` — Dashboard charts and stats use hardcoded zeros; real data collection deferred
+- `web/pages/publish.py:14` — Publish queue shows "暂无待发布视频" info; real publish queue integration deferred
+- `web/pages/review.py:14` — Review page shows "暂无待审核视频" info; real review workflow deferred
 
 ## Threat Flags
 

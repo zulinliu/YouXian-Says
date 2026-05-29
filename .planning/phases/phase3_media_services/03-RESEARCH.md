@@ -141,7 +141,7 @@ pip install tenacity    # -> 9.1.4
 ### Recommended Project Structure (additions from existing)
 
 ```
-youxianduanshipin/
+
 ├── config/
 │   ├── settings.py              # Existing: all API keys
 │   └── model_registry.py        # Existing: voice_clone, digital_human, video_gen, image_gen slots
@@ -690,7 +690,7 @@ async def _mock_digital_human(audio_path: str, model) -> str:
 - [CITED: optimization document] — 2026-05-28-model-agent-tool-optimization.md sections 2.2, 2.4, 2.5, 2.6: voice model priority, video model rankings, digital human rankings, New API relay strategy
 - [CITED: Context7 docs - HeyGen API] — /websites/heygen: video generation v2 endpoint, status polling, avatar config
 - [CITED: Context7 docs - ElevenLabs Python SDK] — /elevenlabs/elevenlabs-python: AsyncElevenLabs, text_to_speech.convert
-- [VERIFIED: existing code] — youxianduanshipin/services/composer.py (compose_video, compose_mock_video), config/model_registry.py (voice_clone, digital_human, video_gen, image_gen slots), config/settings.py (all API keys), web/database.py (get_async_db, get_db_connection)
+- [VERIFIED: existing code] — services/composer.py (compose_video, compose_mock_video), config/model_registry.py (voice_clone, digital_human, video_gen, image_gen slots), config/settings.py (all API keys), web/database.py (get_async_db, get_db_connection)
 
 ### Secondary (MEDIUM confidence)
 - [VERIFIED: npx playwright --version] — Playwright CLI 1.60.0; browsers need `playwright install chromium`

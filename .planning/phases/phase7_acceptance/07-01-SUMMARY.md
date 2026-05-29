@@ -16,11 +16,11 @@ provides:
   - test-composer-service
   - test-api-connection
 affects:
-  - youxianduanshipin/tests/test_services/test_llm.py
-  - youxianduanshipin/tests/test_services/test_voice.py
-  - youxianduanshipin/tests/test_services/test_composer.py
-  - youxianduanshipin/web/pages/settings.py
-  - youxianduanshipin/pyproject.toml
+  - tests/test_services/test_llm.py
+  - tests/test_services/test_voice.py
+  - tests/test_services/test_composer.py
+  - web/pages/settings.py
+  - pyproject.toml
 tech-stack:
   added: []
   patterns:
@@ -28,12 +28,12 @@ tech-stack:
     - pytest markers for API-key-dependent and slow tests
 key-files:
   created:
-    - youxianduanshipin/tests/test_services/test_llm.py
-    - youxianduanshipin/tests/test_services/test_composer.py
+    - tests/test_services/test_llm.py
+    - tests/test_services/test_composer.py
   modified:
-    - youxianduanshipin/tests/test_services/test_voice.py
-    - youxianduanshipin/web/pages/settings.py
-    - youxianduanshipin/pyproject.toml
+    - tests/test_services/test_voice.py
+    - web/pages/settings.py
+    - pyproject.toml
 decisions:
   - test_api_connection function signature changed from (model_config: dict) to (api_base, model_name, api_key, env_key, provider) to support httpx-based connectivity check
   - SRT translation field not rendered in SRT (by design — SRT shows dialect text; translation is metadata)
@@ -91,7 +91,7 @@ All 61 tests pass (non-slow, non-API). Breakdown:
    - **Found during:** Task 1
    - **Issue:** pytest-asyncio requires either @pytest.mark.asyncio on each test or asyncio_mode=auto in config
    - **Fix:** Added asyncio_mode = "auto" to pyproject.toml and registered "api" marker
-   - **Files modified:** youxianduanshipin/pyproject.toml
+   - **Files modified:** pyproject.toml
    - **Commit:** 92fa3aa
 
 3. [Rule 1 - Test] test_generate_srt_dialect_word asserted that "translation" field content appears in SRT output

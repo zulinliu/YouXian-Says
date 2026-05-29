@@ -7,10 +7,10 @@ depends_on:
   - 01
   - 02
 files_modified:
-  - youxianduanshipin/tests/conftest.py
-  - youxianduanshipin/tests/test_database.py
-  - youxianduanshipin/tests/test_auth.py
-  - youxianduanshipin/tests/test_llm.py
+  - tests/conftest.py
+  - tests/test_database.py
+  - tests/test_auth.py
+  - tests/test_llm.py
 autonomous: true
 requirements:
   - DB-01
@@ -32,19 +32,19 @@ must_haves:
     - "pytest tests/test_llm.py passes: chat method, chat_json, retry decorator, model routing"
     - "All test files have proper fixtures and use monkeypatch.setenv() for admin_password"
   artifacts:
-    - path: "youxianduanshipin/tests/conftest.py"
+    - path: "tests/conftest.py"
       provides: "Updated shared test fixtures (temp db, test settings)"
       exports:
         - "test_db_path"
         - "async_test_db"
       min_lines: 50
-    - path: "youxianduanshipin/tests/test_database.py"
+    - path: "tests/test_database.py"
       provides: "Database tests covering init, WAL, state machine, inserts"
       min_lines: 80
-    - path: "youxianduanshipin/tests/test_auth.py"
+    - path: "tests/test_auth.py"
       provides: "Auth tests covering Streamlit login, JWT, token validation"
       min_lines: 80
-    - path: "youxianduanshipin/tests/test_llm.py"
+    - path: "tests/test_llm.py"
       provides: "LLM service tests covering chat, chat_json, retry, routing"
       min_lines: 80
   key_links:
@@ -81,13 +81,13 @@ must_haves:
 @.planning/STATE.md
 @.planning/phases/phase2_core_platform/02-RESEARCH.md
 
-<infiles>youxianduanshipin/web/database.py</infiles>
-<infiles>youxianduanshipin/web/models.py</infiles>
-<infiles>youxianduanshipin/web/auth.py</infiles>
-<infiles>youxianduanshipin/web/routers/auth.py</infiles>
-<infiles>youxianduanshipin/services/llm.py</infiles>
-<infiles>youxianduanshipin/scripts/init_db.py</infiles>
-<infiles>youxianduanshipin/tests/conftest.py</infiles>
+<infiles>web/database.py</infiles>
+<infiles>web/models.py</infiles>
+<infiles>web/auth.py</infiles>
+<infiles>web/routers/auth.py</infiles>
+<infiles>services/llm.py</infiles>
+<infiles>scripts/init_db.py</infiles>
+<infiles>tests/conftest.py</infiles>
 
 <interfaces>
 From web/database.py:
@@ -121,8 +121,8 @@ From tests/conftest.py:
 <task type="auto" tdd="true">
 <name>Task 1: Update conftest.py + Create test_database.py</name>
 <files>
-youxianduanshipin/tests/conftest.py
-youxianduanshipin/tests/test_database.py
+tests/conftest.py
+tests/test_database.py
 </files>
 <action>
 **conftest.py 更新:**
@@ -179,7 +179,7 @@ Test: model_call_log insert works
 - Then: the record can be read back with same values
 </action>
 <verify>
-<automated>cd youxianduanshipin && ADMIN_PASSWORD=test_password python -m pytest tests/test_database.py -x -q 2>&1</automated>
+<automated>ADMIN_PASSWORD=test_password python -m pytest tests/test_database.py -x -q 2>&1</automated>
 </verify>
 <done>
 test_database.py 中 9 个测试全部通过。conftest.py 提供可重用 fixtures 用于临时测试数据库。
@@ -189,7 +189,7 @@ test_database.py 中 9 个测试全部通过。conftest.py 提供可重用 fixtu
 <task type="auto" tdd="true">
 <name>Task 2: Create test_auth.py</name>
 <files>
-youxianduanshipin/tests/test_auth.py
+tests/test_auth.py
 </files>
 <action>
 创建 FastAPI JWT 认证测试。
@@ -246,4 +246,4 @@ Test: FastAPI protected route no token
 - Then: response 403
 </action>
 <verify>
-<automated>cd youxianduanshipin && ADMIN_PASSWORD=test_password python -m pytest tests/test_auth.py -x -q 2>&1
+<automated>ADMIN_PASSWORD=test_password python -m pytest tests/test_auth.py -x -q 2>&1

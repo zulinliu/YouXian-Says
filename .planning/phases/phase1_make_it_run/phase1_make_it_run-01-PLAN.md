@@ -5,29 +5,29 @@ type: execute
 wave: 1
 depends_on: []
 files_modified:
-  - youxianduanshipin/config/__init__.py
-  - youxianduanshipin/config/settings.py
-  - youxianduanshipin/config/model_registry.py
-  - youxianduanshipin/config/prompts.py
-  - youxianduanshipin/services/__init__.py
-  - youxianduanshipin/templates/branding/.gitkeep
-  - youxianduanshipin/templates/music/.gitkeep
-  - youxianduanshipin/templates/fonts/.gitkeep
-  - youxianduanshipin/output/voices/.gitkeep
-  - youxianduanshipin/output/videos/.gitkeep
-  - youxianduanshipin/output/images/.gitkeep
-  - youxianduanshipin/output/final/.gitkeep
-  - youxianduanshipin/data/.gitkeep
-  - youxianduanshipin/web/__init__.py
-  - youxianduanshipin/web/app.py
-  - youxianduanshipin/web/pages/__init__.py
-  - youxianduanshipin/web/pages/settings.py
-  - youxianduanshipin/scripts/.gitkeep
-  - youxianduanshipin/.env.example
-  - youxianduanshipin/requirements.txt
-  - youxianduanshipin/pyproject.toml
-  - youxianduanshipin/scripts/setup.sh
-  - youxianduanshipin/README.md
+  - config/__init__.py
+  - config/settings.py
+  - config/model_registry.py
+  - config/prompts.py
+  - services/__init__.py
+  - templates/branding/.gitkeep
+  - templates/music/.gitkeep
+  - templates/fonts/.gitkeep
+  - output/voices/.gitkeep
+  - output/videos/.gitkeep
+  - output/images/.gitkeep
+  - output/final/.gitkeep
+  - data/.gitkeep
+  - web/__init__.py
+  - web/app.py
+  - web/pages/__init__.py
+  - web/pages/settings.py
+  - scripts/.gitkeep
+  - .env.example
+  - requirements.txt
+  - pyproject.toml
+  - scripts/setup.sh
+  - README.md
 autonomous: true
 requirements:
   - INFRA-01
@@ -53,40 +53,40 @@ must_haves:
     - "User can launch Streamlit web app and see model settings page"
     - "Prompts.py can be imported without errors"
   artifacts:
-    - path: "youxianduanshipin/config/settings.py"
+    - path: "config/settings.py"
       provides: "Pydantic Settings v2 config loaded from .env"
       min_lines: 10
       exports: ["Settings", "settings"]
-    - path: "youxianduanshipin/config/model_registry.py"
+    - path: "config/model_registry.py"
       provides: "ModelOption, FunctionSlot dataclasses; REGISTRY dict; ModelRegistry class"
       min_lines: 100
       exports: ["ModelOption", "FunctionSlot", "REGISTRY", "ModelRegistry"]
-    - path: "youxianduanshipin/config/prompts.py"
+    - path: "config/prompts.py"
       provides: "Prompt templates (stubs in Phase 1)"
       exports: ["DEFAULT_SYSTEM_PROMPT"]
-    - path: "youxianduanshipin/.env.example"
+    - path: ".env.example"
       provides: "All env vars documented with placeholder values"
-    - path: "youxianduanshipin/requirements.txt"
+    - path: "requirements.txt"
       provides: "All pip dependencies"
-    - path: "youxianduanshipin/pyproject.toml"
+    - path: "pyproject.toml"
       provides: "Project metadata + pytest config"
-    - path: "youxianduanshipin/web/app.py"
+    - path: "web/app.py"
       provides: "Streamlit entrypoint with auth guard + navigation"
-    - path: "youxianduanshipin/web/pages/settings.py"
+    - path: "web/pages/settings.py"
       provides: "Model settings page with forms, switch, test connection"
-    - path: "youxianduanshipin/scripts/setup.sh"
+    - path: "scripts/setup.sh"
       provides: "One-click setup: venv creation + pip install + ffmpeg check"
   key_links:
-    - from: "youxianduanshipin/config/settings.py"
+    - from: "config/settings.py"
       to: ".env"
       via: "SettingsConfigDict(env_file='.env')"
-    - from: "youxianduanshipin/config/model_registry.py"
+    - from: "config/model_registry.py"
       to: "data/model_state.json"
       via: "_load_state/_save_state file IO"
-    - from: "youxianduanshipin/web/app.py"
+    - from: "web/app.py"
       to: "web/pages/settings.py"
       via: "st.Page(render_settings_page)"
-    - from: "youxianduanshipin/web/pages/settings.py"
+    - from: "web/pages/settings.py"
       to: "config/model_registry.py"
       via: "ModelRegistry.list_all/switch/update_model_config/test_api_connection"
 
@@ -120,11 +120,11 @@ threat_model:
 </threat_model>
 
 <verification>
-- [ ] `bash youxianduanshipin/scripts/setup.sh` exits 0 and venv created
-- [ ] `cd youxianduanshipin && source venv/bin/activate && python -c "from config.settings import settings; print(settings.web_port)"` prints "8501"
-- [ ] `cd youxianduanshipin && source venv/bin/activate && python -c "from config.model_registry import ModelRegistry; m = ModelRegistry.get_active('text_llm'); print(m.id)"` prints "deepseek_v4_flash"
-- [ ] `pytest -x -q youxianduanshipin/tests/test_model_registry.py` passes (tests created in Plan 04)
-- [ ] `cd youxianduanshipin && source venv/bin/activate && streamlit run web/app.py --server.port 8501 --server.address 127.0.0.1 &` starts without import errors
+- [ ] `bash scripts/setup.sh` exits 0 and venv created
+- [ ] `source venv/bin/activate && python -c "from config.settings import settings; print(settings.web_port)"` prints "8501"
+- [ ] `source venv/bin/activate && python -c "from config.model_registry import ModelRegistry; m = ModelRegistry.get_active('text_llm'); print(m.id)"` prints "deepseek_v4_flash"
+- [ ] `pytest -x -q tests/test_model_registry.py` passes (tests created in Plan 04)
+- [ ] `source venv/bin/activate && streamlit run web/app.py --server.port 8501 --server.address 127.0.0.1 &` starts without import errors
 </verification>
 
 <success_criteria>
@@ -191,25 +191,25 @@ After completion, create `.planning/phases/phase1_make_it_run/01-01-SUMMARY.md`
 <task type="auto">
   <name>Create project directory structure and core config modules</name>
   <files>
-    youxianduanshipin/config/__init__.py
-    youxianduanshipin/config/settings.py
-    youxianduanshipin/config/model_registry.py
-    youxianduanshipin/config/prompts.py
-    youxianduanshipin/services/__init__.py
-    youxianduanshipin/templates/branding/.gitkeep
-    youxianduanshipin/templates/music/.gitkeep
-    youxianduanshipin/templates/fonts/.gitkeep
-    youxianduanshipin/output/voices/.gitkeep
-    youxianduanshipin/output/videos/.gitkeep
-    youxianduanshipin/output/images/.gitkeep
-    youxianduanshipin/output/final/.gitkeep
-    youxianduanshipin/data/.gitkeep
-    youxianduanshipin/web/__init__.py
-    youxianduanshipin/web/pages/__init__.py
-    youxianduanshipin/scripts/.gitkeep
+    config/__init__.py
+    config/settings.py
+    config/model_registry.py
+    config/prompts.py
+    services/__init__.py
+    templates/branding/.gitkeep
+    templates/music/.gitkeep
+    templates/fonts/.gitkeep
+    output/voices/.gitkeep
+    output/videos/.gitkeep
+    output/images/.gitkeep
+    output/final/.gitkeep
+    data/.gitkeep
+    web/__init__.py
+    web/pages/__init__.py
+    scripts/.gitkeep
   </files>
   <action>
-    Create the full project directory tree under `youxianduanshipin/` matching tech spec section II. Directories: config/, services/, templates/branding/, templates/music/, templates/fonts/, agents/, output/voices/, output/videos/, output/images/, output/final/, data/, tests/, web/, web/pages/, scripts/.
+    Create the full project directory tree under `` matching tech spec section II. Directories: config/, services/, templates/branding/, templates/music/, templates/fonts/, agents/, output/voices/, output/videos/, output/images/, output/final/, data/, tests/, web/, web/pages/, scripts/.
 
     Key implementation details per tech spec:
 
@@ -251,11 +251,11 @@ After completion, create `.planning/phases/phase1_make_it_run/01-01-SUMMARY.md`
     5. All `__init__.py` files: empty files
     6. All `.gitkeep` files: empty files
 
-    CRITICAL - Do NOT create `youxianduanshipin/agent/` or `youxianduanshipin/agents/` directory. The tech spec section II shows `agents/` but that is for Phase 4+.
+    CRITICAL - Do NOT create `agent/` or `agents/` directory. The tech spec section II shows `agents/` but that is for Phase 4+.
   </action>
   <verify>
     <automated>
-      cd youxianduanshipin && python3 -c "
+      python3 -c "
 from config.settings import Settings
 from config.model_registry import ModelRegistry
 from config.prompts import get_prompt
@@ -277,11 +277,11 @@ print('OK: all imports working, model_registry returns default')
 <task type="auto">
   <name>Create .env.example, requirements.txt, pyproject.toml, setup.sh, README.md</name>
   <files>
-    youxianduanshipin/.env.example
-    youxianduanshipin/requirements.txt
-    youxianduanshipin/pyproject.toml
-    youxianduanshipin/scripts/setup.sh
-    youxianduanshipin/README.md
+    .env.example
+    requirements.txt
+    pyproject.toml
+    scripts/setup.sh
+    README.md
   </files>
   <action>
     Create project root config files:
@@ -318,7 +318,7 @@ print('OK: all imports working, model_registry returns default')
        build-backend = "setuptools.backends._legacy:_Backend"
 
        [project]
-       name = "youxianduanshipin"
+       name = "youxian-says"
        version = "0.1.0"
        description = "攸县方言短视频生产系统"
        requires-python = ">=3.11"
@@ -375,7 +375,7 @@ print('OK: all imports working, model_registry returns default')
   </action>
   <verify>
     <automated>
-      cd youxianduanshipin && bash scripts/setup.sh 2>&1 | head -20
+      bash scripts/setup.sh 2>&1 | head -20
     </automated>
   </verify>
   <done>
@@ -388,8 +388,8 @@ print('OK: all imports working, model_registry returns default')
 <task type="auto">
   <name>Implement Streamlit entrypoint and model settings page</name>
   <files>
-    youxianduanshipin/web/app.py
-    youxianduanshipin/web/pages/settings.py
+    web/app.py
+    web/pages/settings.py
   </files>
   <action>
     Implement the Streamlit web app with auth guard and model settings page, following tech spec sections 4.4 and 4.4.1.
@@ -432,7 +432,7 @@ print('OK: all imports working, model_registry returns default')
   </action>
   <verify>
     <automated>
-      cd youxianduanshipin && source venv/bin/activate && timeout 5 streamlit run web/app.py --server.port 8501 --server.address 127.0.0.1 2>&1 || true
+      source venv/bin/activate && timeout 5 streamlit run web/app.py --server.port 8501 --server.address 127.0.0.1 2>&1 || true
       # Expected: starts successfully. Timeout kills it after 5s.
     </automated>
   </verify>
@@ -456,12 +456,12 @@ print('OK: all imports working, model_registry returns default')
 <task type="auto">
   <name>Create branding template assets (placeholder images, audio, font)</name>
   <files>
-    youxianduanshipin/templates/branding/intro.mp4
-    youxianduanshipin/templates/branding/outro.mp4
-    youxianduanshipin/templates/branding/watermark.png
-    youxianduanshipin/templates/branding/avatar_placeholder.png
-    youxianduanshipin/templates/branding/broll_placeholder.png
-    youxianduanshipin/templates/music/bgm.mp3
+    templates/branding/intro.mp4
+    templates/branding/outro.mp4
+    templates/branding/watermark.png
+    templates/branding/avatar_placeholder.png
+    templates/branding/broll_placeholder.png
+    templates/music/bgm.mp3
   </files>
   <action>
     Create branding and placeholder assets using FFmpeg and Python imaging.
@@ -478,7 +478,7 @@ print('OK: all imports working, model_registry returns default')
        # Create intro with FFmpeg drawtext
        ffmpeg -y -f lavfi -i color=c=#1a1a2e:s=1080x1920:d=3:r=25 \
          -vf "drawtext=text='攸县有话说':fontsize=72:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2" \
-         -c:v libx264 -pix_fmt yuv420p youxianduanshipin/templates/branding/intro.mp4
+         -c:v libx264 -pix_fmt yuv420p templates/branding/intro.mp4
        ```
 
     2. `templates/branding/outro.mp4` (3 seconds):
@@ -505,7 +505,7 @@ print('OK: all imports working, model_registry returns default')
        ```bash
        ffmpeg -y -f lavfi -i color=c=#2d2d2d:s=1080x1920:d=1 \
          -vf "drawtext=text='数字人占位':fontsize=48:fontcolor=white:x=(w-text_w)/2:y=(h-text_h)/2" \
-         -vframes 1 youxianduanshipin/templates/branding/avatar_placeholder.png
+         -vframes 1 templates/branding/avatar_placeholder.png
        ```
 
     5. `templates/branding/broll_placeholder.png`:
@@ -516,7 +516,7 @@ print('OK: all imports working, model_registry returns default')
        - Generate a short silent audio file or use ffmpeg to create a simple tone:
        ```bash
        ffmpeg -y -f lavfi -i "sine=frequency=220:duration=30" -ac 1 -ar 44100 \
-         youxianduanshipin/templates/music/bgm.mp3
+         templates/music/bgm.mp3
        ```
        This creates a 30-second 220Hz sine wave as placeholder BGM.
 
@@ -526,7 +526,7 @@ print('OK: all imports working, model_registry returns default')
   </action>
   <verify>
     <automated>
-      ls -la youxianduanshipin/templates/branding/intro.mp4 youxianduanshipin/templates/branding/outro.mp4 youxianduanshipin/templates/branding/watermark.png youxianduanshipin/templates/branding/avatar_placeholder.png youxianduanshipin/templates/branding/broll_placeholder.png youxianduanshipin/templates/music/bgm.mp3
+      ls -la templates/branding/intro.mp4 templates/branding/outro.mp4 templates/branding/watermark.png templates/branding/avatar_placeholder.png templates/branding/broll_placeholder.png templates/music/bgm.mp3
     </automated>
   </verify>
   <done>
@@ -539,7 +539,7 @@ print('OK: all imports working, model_registry returns default')
 <task type="auto">
   <name>Implement services/composer.py with mock pipeline and SRT generation</name>
   <files>
-    youxianduanshipin/services/composer.py
+    services/composer.py
   </files>
   <action>
     Implement the complete mock video composition pipeline. This is the core deliverable of Phase 1.
@@ -654,7 +654,7 @@ print('OK: all imports working, model_registry returns default')
   </action>
   <verify>
     <automated>
-      cd youxianduanshipin && source venv/bin/activate && python3 -c "
+      source venv/bin/activate && python3 -c "
 from services.composer import compose_mock_video, compose_video, _generate_srt, _seconds_to_srt_time
 # Test SRT generation
 srt = _generate_srt([{'start': 1.0, 'end': 4.5, 'text': 'test'}])
@@ -674,7 +674,7 @@ print('OK: SRT generation works')
 <task type="auto">
   <name>Run mock pipeline and verify output is a playable video</name>
   <files>
-    youxianduanshipin/output/final/.gitkeep
+    output/final/.gitkeep
   </files>
   <action>
     Execute the mock pipeline and verify the output video:
@@ -684,7 +684,7 @@ print('OK: SRT generation works')
 
     Run from project root:
     ```bash
-    cd youxianduanshipin
+    
     source venv/bin/activate
     python3 -c "
     from services.composer import compose_mock_video
@@ -695,7 +695,7 @@ print('OK: SRT generation works')
 
     Then verify with ffprobe:
     ```bash
-    ffprobe -v error -show_entries format=duration,format_name -show_entries stream=codec_type,codec_name,height,width youxianduanshipin/output/final/mock_demo.mp4
+    ffprobe -v error -show_entries format=duration,format_name -show_entries stream=codec_type,codec_name,height,width output/final/mock_demo.mp4
     ```
 
     Expected properties:
@@ -718,7 +718,7 @@ print('OK: SRT generation works')
   </action>
   <verify>
     <automated>
-      ffprobe -v error -show_entries format=duration,format_name youxianduanshipin/output/final/mock_demo.mp4 2>&1
+      ffprobe -v error -show_entries format=duration,format_name output/final/mock_demo.mp4 2>&1
     </automated>
   </verify>
   <done>
@@ -739,9 +739,9 @@ print('OK: SRT generation works')
 <task type="auto" tdd="true">
   <name>Create pytest tests for ModelRegistry</name>
   <files>
-    youxianduanshipin/tests/__init__.py
-    youxianduanshipin/tests/conftest.py
-    youxianduanshipin/tests/test_model_registry.py
+    tests/__init__.py
+    tests/conftest.py
+    tests/test_model_registry.py
   </files>
   <behavior>
     - test_get_active_returns_model: ModelRegistry.get_active("text_llm") returns ModelOption with correct id
@@ -764,7 +764,7 @@ print('OK: SRT generation works')
   </action>
   <verify>
     <automated>
-      cd youxianduanshipin && source venv/bin/activate && python3 -m pytest tests/test_model_registry.py -x -q 2>&1
+      source venv/bin/activate && python3 -m pytest tests/test_model_registry.py -x -q 2>&1
     </automated>
   </verify>
   <done>
@@ -777,7 +777,7 @@ print('OK: SRT generation works')
 <task type="auto" tdd="true">
   <name>Create pytest tests for mock pipeline verification</name>
   <files>
-    youxianduanshipin/tests/test_mock_pipeline.py
+    tests/test_mock_pipeline.py
   </files>
   <behavior>
     - test_mock_pipeline_creates_video: compose_mock_video produces a file that exists and ffprobe validates
@@ -819,7 +819,7 @@ print('OK: SRT generation works')
   </action>
   <verify>
     <automated>
-      cd youxianduanshipin && source venv/bin/activate && python3 -m pytest tests/test_mock_pipeline.py -x -q -m "not slow" 2>&1
+      source venv/bin/activate && python3 -m pytest tests/test_mock_pipeline.py -x -q -m "not slow" 2>&1
     </automated>
   </verify>
   <done>

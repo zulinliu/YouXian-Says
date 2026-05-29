@@ -155,7 +155,7 @@ Data flow for a single video production (primary use case):
 
 ### Recommended Project Structure
 ```
-youxianduanshipin/
+
 ├── agents/                          # NEW directory
 │   ├── __init__.py                  # Agent exports
 │   ├── content_agent.py             # ContentAgent class
