@@ -621,7 +621,9 @@ class ModelRegistry:
     def _load_state(cls) -> dict:
         path = Path(cls.STATE_FILE)
         if path.exists():
-            return json.loads(path.read_text())
+            text = path.read_text().strip()
+            if text:
+                return json.loads(text)
         return {}
 
     @classmethod
