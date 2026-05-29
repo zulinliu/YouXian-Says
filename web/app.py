@@ -7,7 +7,7 @@ For FastAPI backend:
   uvicorn web.app:app --reload
 
 For combined (dev only, port conflicts possible):
-  cd /home/liuzl/agent/YouXian-Says && streamlit run web/app.py
+  streamlit run web/app.py
 """
 import sys, os
 _project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

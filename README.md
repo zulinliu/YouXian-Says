@@ -2,7 +2,7 @@
 
 用攸县方言讲活攸县故事。基于 AI 模型的自动化短视频生产系统，支持方言配音、数字人/模型占位、B-roll 视频合成和全流程 AI Agent 编排。
 
-> **开源声明：** 本项目仅供学习参考，**商业使用需获得作者授权**。
+> **许可声明：** 本项目采用 CC BY-NC-SA 4.0 协议共享，仅供学习参考，**商业使用需获得作者授权**。
 
 ## 项目状态
 
@@ -152,7 +152,6 @@ bash run_ui.sh
 
 ```bash
 source venv/bin/activate
-cd /home/liuzl/agent/YouXian-Says
 
 # 运行所有测试（排除 API 和慢速测试）
 pytest tests/ -q -m "not api and not slow"
@@ -172,7 +171,7 @@ pytest tests/ -q
 
 ## 许可
 
-本项目开源，仅供学习参考。**商业使用需获得作者授权。**
+本项目以开放共享方式发布，仅供学习参考。**商业使用需获得作者授权。**
 
 本项目采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)（署名-非商业性使用-相同方式共享 4.0 国际）协议发布，详见 [LICENSE](./LICENSE) 文件：
 

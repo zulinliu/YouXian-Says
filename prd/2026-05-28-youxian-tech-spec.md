@@ -2300,7 +2300,7 @@ docker run -d --name n8n \
   --restart unless-stopped \
   n8nio/n8n
 # 4. 克隆项目
-cd /home/liuzl/agent/YouXian-Says
+cd ~/YouXian-Says
 # 5. 安装依赖（无需celery和redis）
 pip install -r requirements.txt
 # 6. 配置API Key
