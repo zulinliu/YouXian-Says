@@ -1,13 +1,9 @@
 """Production Agent — orchestrates voice -> digital human -> B-roll -> compose -> export."""
 import asyncio
-import os
-import json
 from services.voice import generate_voice
 from services.digital_human import create_digital_human
 from services.video_gen import generate_broll
 from services.composer import compose_video
-from services.model_logger import log_model_call
-from config.model_registry import ModelRegistry
 
 
 class ProductionAgent:
@@ -29,25 +25,24 @@ class ProductionAgent:
 
         # 3. Generate B-roll clips in parallel
         shots = script.get("shots", [])
-        b_roll_tasks = []
-        for shot in shots:
-            if shot.get("type") in ("b_roll", "broll"):
-                b_roll_tasks.append(
-                    generate_broll(
-                        prompt=shot.get("visual_description", ""),
-                        duration=shot.get("duration", 5),
-                        output_path="output/videos/broll_" + job_id + "_" + str(shot.get("shot_id", 0)) + ".mp4",
-                        job_id=job_id,
-                    )
-                )
+        b_roll_shots = [s for s in shots if s.get("type") in ("b_roll", "broll")]
+        b_roll_tasks = [
+            generate_broll(
+                prompt=s.get("visual_description", ""),
+                target_duration=s.get("duration", 5),
+                output_path="output/videos/broll_" + job_id + "_" + str(s.get("shot_id", 0)) + ".mp4",
+                job_id=job_id,
+            )
+            for s in b_roll_shots
+        ]
         b_roll_paths = await asyncio.gather(*b_roll_tasks) if b_roll_tasks else []
 
         # 4. Compose final video (sync FFmpeg -> async via to_thread)
         b_roll_clips = [
             {
                 "path": p,
-                "start": shots[i].get("start_time", i * 5),
-                "end": shots[i].get("start_time", i * 5) + shots[i].get("duration", 5),
+                "start": b_roll_shots[i].get("start_time", i * 5),
+                "end": b_roll_shots[i].get("start_time", i * 5) + b_roll_shots[i].get("duration", 5),
             }
             for i, p in enumerate(b_roll_paths)
         ]

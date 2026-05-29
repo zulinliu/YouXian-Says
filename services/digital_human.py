@@ -115,7 +115,7 @@ DIGITAL_HUMAN_PROVIDERS = {
 
 async def create_digital_human(
     audio_path: str,
-    output_path: str = None,
+    output_path: str | None = None,
     job_id: str = "test",
 ) -> str:
     """Create digital human video. Auto-routes to active model/mode."""

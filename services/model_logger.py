@@ -17,8 +17,8 @@ async def log_model_call(
     latency_ms: int = 0,
     cost_estimate: float = 0.0,
     success: int = 1,
-    error_message: str = None,
-    quality_score: float = None,
+    error_message: str | None = None,
+    quality_score: float | None = None,
 ):
     """Log a model call to the database.
 

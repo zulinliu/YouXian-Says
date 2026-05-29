@@ -9,7 +9,9 @@ from datetime import datetime
 
 PROJECT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_DIR))
-os.environ["ADMIN_PASSWORD"] = "eval_test"
+# 评估脚本仅用于测试，密码从 .env 加载
+if not os.environ.get("ADMIN_PASSWORD"):
+    os.environ["ADMIN_PASSWORD"] = "eval_only"
 
 EVAL_SAMPLES = [
     {"task_type": "topic", "prompt": "攸县米粉为什么出名", "quality_dimensions": ["local_relevance", "hook_strength"]},

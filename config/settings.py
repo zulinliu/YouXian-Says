@@ -80,22 +80,24 @@ class Settings(BaseSettings):
     # ── 数据加密 ──
     master_encryption_key: str = ""
 
+    # ── JWT ──
+    jwt_secret_key: str = ""
+
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
 
 import os as _os
+import secrets as _secrets
 from dotenv import load_dotenv as _load_dotenv
 
 settings = Settings()
 
-# 双重保险：直接把 .env 加载到 os.environ
+# 确保 .env 已加载到 os.environ（供 model_registry 等模块通过 os.environ.get 读取）
 _load_dotenv(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", ".env"))
 
-# 再将 settings 中的值写入 os.environ（确保大写环境变量可用）
-for _field_name, _field_value in settings.model_dump().items():
-    _env_key = _field_name.upper()
-    if isinstance(_field_value, str) and _field_value and _env_key not in _os.environ:
-        _os.environ[_env_key] = _field_value
+# 如果未配置 JWT 密钥，自动生成一个（仅限本次运行）
+if not settings.jwt_secret_key:
+    settings.jwt_secret_key = _secrets.token_urlsafe(64)
 
 # 启动时校验管理员密码安全性
 if settings.admin_password in ("admin", ""):

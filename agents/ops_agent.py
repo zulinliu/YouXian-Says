@@ -1,11 +1,8 @@
 """Ops Agent — publish, data collection, weekly report."""
 import json
-import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime
 from services.llm import text_llm
 from services.publisher import publish
-from services.model_logger import log_model_call
-from config.model_registry import ModelRegistry
 from config.prompts import get_prompt
 
 
@@ -17,7 +14,7 @@ class OpsAgent:
         video_path: str,
         platforms: list[str],
         title: str = "",
-        tags: list[str] = None,
+        tags: list[str] | None = None,
         description: str = "",
     ) -> dict:
         """发布已审核过的视频到指定平台"""
@@ -35,7 +32,7 @@ class OpsAgent:
             data["platforms"][platform] = {"status": "simulated"}
         return data
 
-    async def generate_weekly_report(self, raw_data: dict = None) -> dict:
+    async def generate_weekly_report(self, raw_data: dict | None = None) -> dict:
         """生成周度分析报告"""
         if raw_data is None:
             raw_data = await self.collect_daily_data()
@@ -45,7 +42,6 @@ class OpsAgent:
             {"role": "user", "content": "本周数据：" + json.dumps(raw_data, ensure_ascii=False)}
         ])
 
-        # Extract pillar weight suggestions
         pillar_weights = result.get("pillar_weights", {})
         if pillar_weights:
             result["_pillar_weights_parsed"] = True

@@ -5,8 +5,7 @@ All model calls use LLMAbstract.chat_json() for structured output.
 """
 import json
 import asyncio
-from typing import Optional
-from services.llm import text_llm, multimodal_llm
+from services.llm import text_llm
 from services.image_gen import generate_image
 from services.model_logger import log_model_call
 from config.model_registry import ModelRegistry
@@ -38,7 +37,7 @@ class ContentAgent:
         )
         return topics
 
-    async def generate_script(self, topic: dict, dialect_dict: list = None) -> dict:
+    async def generate_script(self, topic: dict, dialect_dict: list | None = None) -> dict:
         """根据选题生成完整脚本"""
         if dialect_dict is None:
             dialect_dict = DIALECT_DICT

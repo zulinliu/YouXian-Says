@@ -33,3 +33,9 @@ output/eval_results_*.json
 
 # Test cache
 .pytest_cache/
+
+# Type check cache
+.mypy_cache/
+
+# Ruff cache
+.ruff_cache/

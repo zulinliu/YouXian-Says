@@ -3,7 +3,7 @@ from services.llm import text_llm
 from config.prompts import get_prompt
 
 
-async def parse_revision(instruction: str, video_info: dict = None) -> dict:
+async def parse_revision(instruction: str, video_info: dict | None = None) -> dict:
     """Parse natural language revision into structured actions.
 
     Returns:

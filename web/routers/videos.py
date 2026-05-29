@@ -69,6 +69,17 @@ async def update_video(video_id: int, update: VideoUpdate, db=Depends(get_async_
         fields.append("title=?")
         values.append(update.title)
     if update.status:
+        # State machine validation for status updates
+        cursor = await db.execute("SELECT status FROM videos WHERE id=?", (video_id,))
+        row = await cursor.fetchone()
+        if row:
+            current = row["status"]
+            target = update.status
+            if current in VALID_TRANSITIONS and target not in VALID_TRANSITIONS.get(current, []):
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"不允许的状态转换: {current} → {target}. 允许的转换: {VALID_TRANSITIONS[current]}"
+                )
         fields.append("status=?")
         values.append(update.status)
     if update.fact_risk_level:

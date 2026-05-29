@@ -69,13 +69,20 @@ class LLMAbstract:
         return response.choices[0].message.content
 
     async def chat_json(self, messages: list, **kwargs) -> dict:
-        """JSON格式输出"""
+        """JSON格式输出，含容错解析"""
         content = await self.chat(
             messages,
             response_format={"type": "json_object"},
             **kwargs
         )
-        return json.loads(content)
+        try:
+            return json.loads(content)
+        except json.JSONDecodeError:
+            import re
+            match = re.search(r'\{.*\}', content, re.DOTALL)
+            if match:
+                return json.loads(match.group())
+            raise ValueError(f"LLM 返回非法 JSON: {content[:200]}")
 
 
 # 全局实例

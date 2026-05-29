@@ -6,7 +6,6 @@ import json
 import base64
 import hashlib
 from dataclasses import dataclass, field
-from typing import Optional
 from pathlib import Path
 
 from cryptography.fernet import Fernet
@@ -546,8 +545,8 @@ class ModelRegistry:
 
     @classmethod
     def update_model_config(cls, function_id: str, model_id: str,
-                            api_base: str = None, api_key: str = None,
-                            model_name: str = None):
+                            api_base: str | None = None, api_key: str | None = None,
+                            model_name: str | None = None):
         """更新某个模型的自定义参数（Web后台编辑API URL/Key等）"""
         state = cls._load_state()
         if function_id not in state:

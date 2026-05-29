@@ -99,7 +99,7 @@ VIDEO_PROVIDERS = {
 
 async def generate_broll(
     prompt: str,
-    output_path: str = None,
+    output_path: str | None = None,
     target_duration: float = 5.0,
     job_id: str = "test",
 ) -> str:

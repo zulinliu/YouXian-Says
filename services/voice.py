@@ -164,7 +164,8 @@ async def generate_voice(
                         channel=model.channel, latency_ms=timer.elapsed_ms, success=1,
                     )
                     return result
-                except Exception:
+                except Exception as e:
+                    logger.debug("Voice fallback %s failed: %s", fallback_id, e)
                     continue
             raise
 
@@ -181,7 +182,8 @@ async def generate_voice(
                     channel=model.channel, latency_ms=timer.elapsed_ms, success=1,
                 )
                 return result
-            except Exception:
+            except Exception as e:
+                logger.debug("Voice unregistered fallback %s failed: %s", fallback_id, e)
                 continue
 
     # Ultimate fallback: mock

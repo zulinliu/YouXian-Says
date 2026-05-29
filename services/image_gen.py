@@ -138,7 +138,8 @@ async def generate_image(
                         channel=model.channel, latency_ms=timer.elapsed_ms, success=1,
                     )
                     return result
-                except Exception:
+                except Exception as e:
+                    logger.debug("Image fallback %s failed: %s", fallback_id, e)
                     continue
             # Ultimate fallback: mock (no exception)
             return await _mock_image(prompt, output_path, model)
@@ -149,7 +150,8 @@ async def generate_image(
         if fallback_fn is not None:
             try:
                 return await fallback_fn(prompt, output_path, model)
-            except Exception:
+            except Exception as e:
+                logger.debug("Image unregistered fallback %s failed: %s", fallback_id, e)
                 continue
 
     return await _mock_image(prompt, output_path, model)

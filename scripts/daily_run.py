@@ -10,7 +10,9 @@ from datetime import datetime
 
 PROJECT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(PROJECT_DIR))
-os.environ.setdefault("ADMIN_PASSWORD", os.environ.get("ADMIN_PASSWORD", "daily_run"))
+if not os.environ.get("ADMIN_PASSWORD"):
+    print("ERROR: 请在 .env 中设置 ADMIN_PASSWORD", file=sys.stderr)
+    sys.exit(1)
 
 
 async def daily_pipeline():

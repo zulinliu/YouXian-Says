@@ -1,6 +1,5 @@
 """模型设置页面 — 查看/切换/编辑模型参数"""
 
-import re
 import streamlit as st
 from config.model_registry import ModelRegistry
 

@@ -1,5 +1,5 @@
 """Scripts API routes."""
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from web.auth import verify_token
 from web.database import get_async_db
 from web.models import ScriptCreate, StoryboardCreate

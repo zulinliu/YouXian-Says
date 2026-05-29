@@ -1,4 +1,5 @@
 """Authentication — Streamlit session auth + FastAPI JWT."""
+import hmac
 import streamlit as st
 from datetime import datetime, timedelta, timezone
 import jwt
@@ -25,7 +26,7 @@ def check_auth():
         st.markdown("请输入管理员密码登录")
         password = st.text_input("管理员密码", type="password")
         if st.button("登录"):
-            if password == settings.admin_password:
+            if hmac.compare_digest(password, settings.admin_password):
                 st.session_state.authenticated = True
                 st.rerun()
             else:
@@ -35,6 +36,10 @@ def check_auth():
 
 # ── FastAPI JWT Auth ──
 
+def _jwt_secret() -> str:
+    """获取 JWT 签名密钥（独立于 admin 密码）"""
+    return settings.jwt_secret_key
+
 async def verify_token(token: str = Depends(oauth2_scheme)):
     """Dependency: verify JWT token, return username from 'sub' claim."""
     credentials_exception = HTTPException(
@@ -43,7 +48,7 @@ async def verify_token(token: str = Depends(oauth2_scheme)):
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, settings.admin_password, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, _jwt_secret(), algorithms=[ALGORITHM])
         username = payload.get("sub")
         if username is None:
             raise credentials_exception
@@ -56,4 +61,4 @@ def create_access_token(username: str = "admin") -> str:
     """Create a JWT access token."""
     expire = datetime.now(timezone.utc) + timedelta(hours=ACCESS_TOKEN_EXPIRE_HOURS)
     payload = {"sub": username, "exp": expire}
-    return jwt.encode(payload, settings.admin_password, algorithm=ALGORITHM)
+    return jwt.encode(payload, _jwt_secret(), algorithm=ALGORITHM)

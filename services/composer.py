@@ -195,10 +195,10 @@ def _compose_simple(dh_path, voice_path, b_roll_clips, subtitles, srt_path,
 
 
 def compose_mock_video(
-    output_path: str = None,
+    output_path: str | None = None,
     duration: float = 15.0,
     voiceover_duration: float = 12.0,
-    subtitle_texts: list[dict] = None,
+    subtitle_texts: list[dict] | None = None,
 ) -> str:
     """Generate mock video using only local FFmpeg (no API calls)."""
     if output_path is None:
