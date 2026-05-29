@@ -1,0 +1,167 @@
+{
+  "version": "1.0",
+  "updated": "2026-05-28",
+  "words": [
+    {
+      "word": "恰饭",
+      "pinyin": "qia fan",
+      "meaning": "吃饭",
+      "example": "你恰饭了冇？",
+      "category": "daily_life"
+    },
+    {
+      "word": "耍",
+      "pinyin": "shua",
+      "meaning": "玩耍、玩",
+      "example": "到哪克耍？",
+      "category": "daily_life"
+    },
+    {
+      "word": "冇",
+      "pinyin": "mao",
+      "meaning": "没有",
+      "example": "冇得时间了",
+      "category": "daily_life"
+    },
+    {
+      "word": "咯",
+      "pinyin": "ge/lo",
+      "meaning": "语气助词，表示肯定或疑问",
+      "example": "好咯！就这样咯。",
+      "category": "grammar"
+    },
+    {
+      "word": "哩",
+      "pinyin": "li",
+      "meaning": "语气助词，相当于普通话的'了'或'呢'",
+      "example": "走哩啵？",
+      "category": "grammar"
+    },
+    {
+      "word": "崽",
+      "pinyin": "zai",
+      "meaning": "儿子、男孩子",
+      "example": "他屋里崽好听话",
+      "category": "people"
+    },
+    {
+      "word": "妹几",
+      "pinyin": "mei ji",
+      "meaning": "女孩子、女儿",
+      "example": "那个妹几长得好乖",
+      "category": "people"
+    },
+    {
+      "word": "老子",
+      "pinyin": "lao zi",
+      "meaning": "我（自称），有时带粗鲁语气",
+      "example": "老子不跟你讲哩",
+      "category": "daily_life"
+    },
+    {
+      "word": "何解",
+      "pinyin": "he gai",
+      "meaning": "为什么、怎么了",
+      "example": "你何解不早滴讲？",
+      "category": "grammar"
+    },
+    {
+      "word": "嗯咯",
+      "pinyin": "en ge",
+      "meaning": "是的、对啊",
+      "example": "嗯咯，就是咯样",
+      "category": "daily_life"
+    },
+    {
+      "word": "好多",
+      "pinyin": "hao duo",
+      "meaning": "多少、很多",
+      "example": "要好多钱？",
+      "category": "daily_life"
+    },
+    {
+      "word": "几多",
+      "pinyin": "ji duo",
+      "meaning": "多少",
+      "example": "有几多人来？",
+      "category": "daily_life"
+    },
+    {
+      "word": "哈",
+      "pinyin": "ha",
+      "meaning": "都、全部",
+      "example": "你们哈来哩",
+      "category": "grammar"
+    },
+    {
+      "word": "喽",
+      "pinyin": "lou",
+      "meaning": "语气助词，表提醒或催促",
+      "example": "走喽！要迟到哩",
+      "category": "grammar"
+    },
+    {
+      "word": "咯哩咯嗦",
+      "pinyin": "ge li ge suo",
+      "meaning": "啰嗦、话多",
+      "example": "你莫咯哩咯嗦哩",
+      "category": "daily_life"
+    },
+    {
+      "word": "醒门子",
+      "pinyin": "xing men zi",
+      "meaning": "明白事理、懂事",
+      "example": "那个细伢子好醒门子",
+      "category": "daily_life"
+    },
+    {
+      "word": "弹四郎",
+      "pinyin": "tan si lang",
+      "meaning": "指说话不着调、不靠谱的人",
+      "example": "莫听他讲，他是个弹四郎",
+      "category": "people"
+    },
+    {
+      "word": "扯卵谈",
+      "pinyin": "che luan tan",
+      "meaning": "闲聊、说废话",
+      "example": "莫扯卵谈哩，快滴做事",
+      "category": "daily_life"
+    },
+    {
+      "word": "冇得",
+      "pinyin": "mao de",
+      "meaning": "没有（东西）",
+      "example": "屋里冇得米了",
+      "category": "daily_life"
+    },
+    {
+      "word": "跟哒",
+      "pinyin": "gen da",
+      "meaning": "跟着",
+      "example": "你跟我哒我走",
+      "category": "daily_life"
+    },
+    {
+      "word": "何什",
+      "pinyin": "he shi",
+      "meaning": "怎么、怎样",
+      "example": "咯件事要何什搞？",
+      "category": "grammar"
+    },
+    {
+      "word": "晓得",
+      "pinyin": "xiao de",
+      "meaning": "知道",
+      "example": "我不晓得他到哪里克哩",
+      "category": "daily_life"
+    },
+    {
+      "word": "讲话",
+      "pinyin": "jiang hua",
+      "meaning": "说话",
+      "example": "他会讲攸县话",
+      "category": "daily_life"
+    }
+  ]
+}

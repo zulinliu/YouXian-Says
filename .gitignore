@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment file (contains secrets)
+.env
+
+# Model state (contains encrypted API keys)
+data/model_state.json
+data/model_state.bak
+data/model_state.tmp
+
+# Output files
+output/voices/*
+output/videos/*
+output/images/*
+output/final/*
+!output/**/.gitkeep
+
+# Database
+data/youxian.db
+
+# Claude worktrees (agent temp files)
+.claude/worktrees/
+
+# Evaluation results
+output/eval_results_*.json
+
+# Test cache
+.pytest_cache/
+
+# Type check cache
+.mypy_cache/
+
+# Ruff cache
+.ruff_cache/

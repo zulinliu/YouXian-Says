@@ -61,7 +61,7 @@
 ## 二、项目目录结构
 
 ```
-youxianduanshipin/
+./
 ├── config/
 │   ├── settings.py          # 所有API Key和配置
 │   ├── model_registry.py    # 模型注册中心（多模型+切换）
@@ -2300,7 +2300,7 @@ docker run -d --name n8n \
   --restart unless-stopped \
   n8nio/n8n
 # 4. 克隆项目
-cd /home/liuzl/agent/youxianduanshipin
+cd ~/YouXian-Says
 # 5. 安装依赖（无需celery和redis）
 pip install -r requirements.txt
 # 6. 配置API Key
@@ -2366,7 +2366,7 @@ streamlit run web/app.py --server.port 8501 --server.address 127.0.0.1
 在Claude Code中执行：
 
 ```
-请按照 docs/superpowers/specs/2026-05-28-youxian-tech-spec.md 的规格，
+请按照 prd/2026-05-28-youxian-tech-spec.md 的规格，
 搭建攸县方言短视频制作系统。按以下顺序实施：
 
 1. 先创建项目目录结构和配置文件

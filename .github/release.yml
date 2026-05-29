@@ -1,0 +1,26 @@
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+      - dependencies
+  categories:
+    - title: "🚀 新功能"
+      labels:
+        - feat
+        - feature
+        - enhancement
+    - title: "🐛 Bug 修复"
+      labels:
+        - fix
+        - bugfix
+        - bug
+    - title: "📝 文档更新"
+      labels:
+        - docs
+        - documentation
+    - title: "♻️ 代码重构"
+      labels:
+        - refactor
+    - title: "🔧 其他变更"
+      labels:
+        - "*"
