@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 讨论区
+    url: https://github.com/liuzl/YouXian-Says/discussions
+    about: 使用 Discussions 进行问答、想法分享和展示
+  - name: 📖 项目文档
+    url: https://github.com/liuzl/YouXian-Says#readme
+    about: 查看项目 README 了解使用说明
