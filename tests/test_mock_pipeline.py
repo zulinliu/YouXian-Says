@@ -1,11 +1,9 @@
 """Tests for mock pipeline verification."""
-import os
 import shutil
 from pathlib import Path
 import pytest
 from services.composer import (
-    compose_mock_video, compose_video,
-    _generate_srt, _seconds_to_srt_time
+    compose_mock_video, _generate_srt, _seconds_to_srt_time
 )
 
 pytestmark = pytest.mark.skipif(

@@ -22,11 +22,11 @@ def render_review_page():
                 action = st.radio("审核结果", ["通过 ✅", "轻微修改", "重新制作 ❌"], horizontal=True)
 
                 if action != "通过 ✅":
-                    dimensions = st.multiselect(
+                    st.multiselect(  # noqa: F841
                         "修改维度",
                         ["画面/B-roll", "配音/语气", "字幕/翻译", "背景音乐", "脚本内容"],
                     )
-                    comment = st.text_area("具体修改要求")
+                    st.text_area("具体修改要求")  # noqa: F841
 
                 if st.form_submit_button("提交审核", type="primary"):
                     st.toast(f"审核完成: {action}")

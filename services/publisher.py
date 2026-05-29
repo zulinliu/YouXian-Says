@@ -3,9 +3,7 @@
 T-03-02: MVP requires human confirmation gate (pending_review -> approved);
 no unattended publish by default.
 """
-import json
 import logging
-from pathlib import Path
 
 from services.model_logger import log_model_call, Timer
 

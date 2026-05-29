@@ -1,5 +1,9 @@
 """系统配置 — 从.env加载所有API Key和参数"""
 
+import os as _os
+import secrets as _secrets
+
+from dotenv import load_dotenv as _load_dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -85,10 +89,6 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-
-import os as _os
-import secrets as _secrets
-from dotenv import load_dotenv as _load_dotenv
 
 settings = Settings()
 

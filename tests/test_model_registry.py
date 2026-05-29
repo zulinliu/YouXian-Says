@@ -1,6 +1,5 @@
 """Tests for ModelRegistry."""
 import json
-from pathlib import Path
 import pytest
 from config.model_registry import ModelRegistry
 

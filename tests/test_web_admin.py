@@ -1,5 +1,4 @@
 """Tests for web admin pages — import and structure checks."""
-from pathlib import Path
 
 
 def test_create_page_imports():

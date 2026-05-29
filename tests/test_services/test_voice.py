@@ -1,13 +1,11 @@
 """Tests for voice generation service."""
 import gc
 import pytest
-from unittest.mock import patch, AsyncMock
 from pathlib import Path
 
 from services.voice import (
     generate_voice,
     VOICE_PROVIDERS,
-    _mock_tts,
 )
 from tests.test_services.conftest import MockModelOption
 
@@ -51,7 +49,6 @@ async def test_model_call_logged_on_voice_generation(tmp_output_dir):
     async def tracking_log(job_id, task_type, model_id, provider, **kwargs):
         captured["task_type"] = task_type
         return await original_log(job_id, task_type, model_id, provider, **kwargs)
-        return await original_log(*args, **kwargs)
 
     sv.log_model_call = tracking_log
 
@@ -118,7 +115,9 @@ class TestVoiceServiceStructure:
 
     def test_voice_mock_fallback(self):
         """Mock mode should work without any API key."""
-        import asyncio, os, tempfile
+        import asyncio
+        import os
+        import tempfile
         from services.voice import generate_voice
 
         async def _test():

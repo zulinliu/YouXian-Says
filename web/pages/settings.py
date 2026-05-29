@@ -11,7 +11,8 @@ def test_api_connection(api_base: str, model_name: str, api_key: str,
     Phase 7: Attempts actual API call when credentials are provided.
     Falls back to URL validation when no credentials.
     """
-    import time, os
+    import time
+    import os
 
     # If we have what looks like a real API key, try actual connectivity
     effective_key = api_key or os.environ.get(env_key, "")
@@ -66,7 +67,7 @@ def render_settings_page():
             # 当前激活模型徽章
             cols = st.columns([3, 1])
             cols[0].markdown(f"**当前使用：** `{active_name}` ({active_id})")
-            cols[1].markdown(f"<div style='text-align:right'><span style='background:#00c853;color:white;padding:2px 12px;border-radius:12px;font-size:0.85em'>当前使用</span></div>", unsafe_allow_html=True)
+            cols[1].markdown("<div style='text-align:right'><span style='background:#00c853;color:white;padding:2px 12px;border-radius:12px;font-size:0.85em'>当前使用</span></div>", unsafe_allow_html=True)
 
             st.divider()
 
@@ -174,7 +175,7 @@ def render_settings_page():
                             st.toast(f"重试任务 #{vdict['id']} 已提交")
                     elif vdict['status'] == 'pending_review':
                         if st.button(f"✅ 审核 #{vdict['id']}", key=f"review_{vdict['id']}"):
-                            st.toast(f"已跳转到审核页面")
+                            st.toast("已跳转到审核页面")
         else:
             st.info("暂无视频记录")
     except Exception as e:

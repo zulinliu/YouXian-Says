@@ -3,7 +3,6 @@ import logging
 import subprocess
 from pathlib import Path
 
-from services import get_http_client
 from services.model_logger import log_model_call, Timer
 from config.model_registry import ModelRegistry
 

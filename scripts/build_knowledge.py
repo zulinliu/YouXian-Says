@@ -4,7 +4,6 @@
 Aggregates data from dialect_dict.json + online search results into a
 structured knowledge base for the Content Agent. Runs idempotently.
 """
-import json, os, sys
 from pathlib import Path
 
 PROJECT_DIR = Path(__file__).parent.parent
@@ -59,7 +58,7 @@ SECTIONS = {
 
 
 def format_sections() -> str:
-    parts = [f"# 攸县知识库\n\n> 更新时间：2025-05-28\n> 来源：综合整理（公开资料 + 民间收集）\n"]
+    parts = ["# 攸县知识库\n\n> 更新时间：2025-05-28\n> 来源：综合整理（公开资料 + 民间收集）\n"]
 
     for key, section in SECTIONS.items():
         source_tag = "folk_saying" if key in ("customs", "dialect") else "confirmed_fact"

@@ -47,7 +47,7 @@ def render_create_page():
                     if difficulty:
                         st.caption(f"难度: {'⭐' * int(difficulty)}")
                 with col4:
-                    if st.button(f"选择", key=f"select_{i}"):
+                    if st.button("选择", key=f"select_{i}"):
                         st.session_state.selected_topic = topic
                         st.session_state.selected_topic_idx = i
                         st.toast(f"已选择: {title}")

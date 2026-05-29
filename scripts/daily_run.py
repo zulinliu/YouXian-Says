@@ -4,7 +4,10 @@
 Checks pending tasks, triggers agent workflows, generates reports.
 Can be called from cron / systemd timer.
 """
-import asyncio, json, sys, os
+import asyncio
+import json
+import sys
+import os
 from pathlib import Path
 from datetime import datetime
 
@@ -59,7 +62,7 @@ async def daily_pipeline():
     data = await ops.collect_daily_data()
     print(f"  数据采集: {data.get('date', 'unknown')}")
 
-    print(f"\n=== 每日流程完成 ===")
+    print("\n=== 每日流程完成 ===")
 
 
 async def weekly_report():

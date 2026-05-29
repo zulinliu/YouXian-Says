@@ -4,8 +4,6 @@ import pytest
 from services.publisher import (
     publish,
     PLATFORM_PROVIDERS,
-    OFFICIAL_API_PLATFORMS,
-    BROWSER_PLATFORMS,
 )
 
 

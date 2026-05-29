@@ -4,7 +4,10 @@
 Generates avatar placeholder image, persona description JSON, and
 mode-selection config. Supports --mode mock|local|manual flags.
 """
-import argparse, json, os, subprocess, sys
+import argparse
+import json
+import os
+import subprocess
 from pathlib import Path
 
 PROJECT_DIR = Path(__file__).parent.parent

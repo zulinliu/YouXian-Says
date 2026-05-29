@@ -1,5 +1,4 @@
 """Pydantic models for API request/response validation."""
-from datetime import datetime
 from enum import Enum
 from typing import Optional
 

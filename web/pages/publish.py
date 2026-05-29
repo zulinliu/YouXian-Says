@@ -26,17 +26,15 @@ def render_publish_page():
                     help="MVP 阶段支持抖音和视频号"
                 )
                 schedule_type = st.radio("发布时间", ["立即发布", "定时发布"], horizontal=True)
-                scheduled_time = None
                 if schedule_type == "定时发布":
-                    from datetime import datetime, timedelta
-                    scheduled_time = st.date_input("日期")
+                    st.date_input("日期")  # noqa: F841
 
                 st.markdown("---")
                 st.markdown("**发布确认** — 请确认以下信息：")
 
                 review_title = st.text_input("视频标题", value=demo_video.get("title", ""))
-                review_tags = st.text_input("标签（逗号分隔）", value="攸县话,方言")
-                review_desc = st.text_area("描述")
+                st.text_input("标签（逗号分隔）", value="攸县话,方言")  # noqa: F841
+                st.text_area("描述")  # noqa: F841
 
                 col1, col2 = st.columns(2)
                 with col1:

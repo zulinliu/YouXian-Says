@@ -1,6 +1,7 @@
 """Tests for FFmpeg composer service."""
 import pytest
-import os, tempfile, json
+import os
+import json
 from services.composer import (
     compose_video, compose_mock_video,
     _generate_srt, _seconds_to_srt_time
@@ -61,7 +62,7 @@ class TestMockPipeline:
         assert os.path.getsize(result) > 50000
 
     def test_mock_video_resolution(self, tmp_path):
-        import subprocess, json
+        import subprocess
         output = tmp_path / "test_res.mp4"
         compose_mock_video(output_path=str(output), duration=3.0)
         probe = subprocess.run(

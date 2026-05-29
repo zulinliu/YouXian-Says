@@ -9,13 +9,14 @@ For FastAPI backend:
 For combined (dev only, port conflicts possible):
   streamlit run web/app.py
 """
-import sys, os
+import sys
+import os
 _project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
-from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from contextlib import asynccontextmanager  # noqa: E402
+from fastapi import FastAPI  # noqa: E402
 
 # ── FastAPI Setup ──
 
@@ -34,7 +35,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="攸县有话说 API", version="0.1.0", lifespan=lifespan)
 
 # CORS — allow Streamlit frontend to call API
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:8501"],
@@ -44,7 +45,7 @@ app.add_middleware(
 )
 
 # Register routers
-from web.routers import auth, topics, scripts, videos
+from web.routers import auth, topics, scripts, videos  # noqa: E402
 app.include_router(auth.router)
 app.include_router(topics.router)
 app.include_router(scripts.router)
