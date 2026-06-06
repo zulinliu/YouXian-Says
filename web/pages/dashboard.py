@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import streamlit as st
 from agents import OpsAgent
 from web.styles import (
-    COLORS, esc, icon, page_header, empty_state, stat_card,
+    COLORS, esc, page_header, empty_state, stat_card,
     section_header,
 )
 

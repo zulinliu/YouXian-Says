@@ -10,9 +10,9 @@ _PROJECT_ROOT = str(Path(__file__).resolve().parent.parent)
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
-import streamlit as st
-from web.auth import check_auth
-from web.styles import inject_styles, COLORS, render_logo
+import streamlit as st  # noqa: E402
+from web.auth import check_auth  # noqa: E402
+from web.styles import COLORS, inject_styles, render_logo  # noqa: E402
 
 logger = logging.getLogger(__name__)
 
