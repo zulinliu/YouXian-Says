@@ -31,10 +31,12 @@ def test_app_importable():
     assert callable(run_streamlit)
 
 
-def test_all_pages_in_app():
-    import web.app as app_mod
+def test_all_pages_in_navigation():
     import inspect
-    source = inspect.getsource(app_mod)
+    import web.navigation as navigation_mod
+
+    source = inspect.getsource(navigation_mod)
+    assert "render_workspace_page" in source
     assert "render_create_page" in source
     assert "render_review_page" in source
     assert "render_publish_page" in source

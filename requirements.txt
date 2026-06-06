@@ -11,6 +11,7 @@ playwright
 sqlite-utils
 python-dotenv
 pytest
+pytest-asyncio>=0.23.0
 pytest-cov
 aiosqlite>=0.20.0
 pyjwt>=2.8.0
