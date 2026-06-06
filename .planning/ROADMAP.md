@@ -146,3 +146,11 @@ Plans:
 | 7. Test & Acceptance | ✅ Complete | 2026-05-29 |
 
 **Complete!** All 56 v1 requirements verified. Ready for v2 planning.
+
+
+## Version Branch & Release Plan
+
+- `feat/v1.0.0`：v1 MVP 完成分支，对应发行版 `v1.0.0`。
+- `feat/v1.1.0`：前端深度重构 + 分支发行规范，对应待发布发行版 `v1.1.0`。
+- `feat/v1.2.0`：下一版本迭代分支，从 `v1.1.0` 合入/发布后的最新 `main` 迁出。
+- 分支、PR、Release 详细规则见 `docs/BRANCHING_AND_RELEASE.md`。

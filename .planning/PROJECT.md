@@ -49,7 +49,7 @@ v1 MVP 已完成。v2 规划中。
 ## Context
 
 - 项目基于 2026-05-28 评审通过的三份设计文档
-- 用户使用 Feature/liuzl 分支开发
+- 版本迭代统一使用 `feat/vX.Y.Z` 分支；完成后通过 PR 合入 `main` 并发布 `vX.Y.Z` 发行版
 - 项目为个人独立操作，MVP 约 40-70 分钟/周用户投入
 - 方言声音使用 MiMo V2.5 TTS（通过 token-plan-cn 调用 chat/completions 端点）
 - 文本/图像模型通过 DreamField 中转站调用（DeepSeek V4 Flash、GLM-5.1、GPT-image-2）
@@ -78,6 +78,7 @@ v1 MVP 已完成。v2 规划中。
 | 语音主线 MiMo VoiceClone/TTS | 已购小米语音能力 | ✓ Good |
 | MiMo TTS 走 chat/completions + api-key header | 实际 API 测试验证 | ✓ Good |
 | GPT-image-2 走 chat/completions 非 responses | 中转站不支持 responses 端点 | ✓ Good |
+| 版本分支统一使用 `feat/vX.Y.Z` | 版本分支完成后 PR 合入 `main` 并发布同版本发行版；历史 `feat/v1`/`feat/v2` 迁移为语义化版本分支 | ✓ Good |
 
 ## v2 规划方向
 
@@ -90,6 +91,15 @@ v1 MVP 已完成。v2 规划中。
 | P2 | 日更自动化部署（cron + n8n） | 实现每日自动执行 |
 | P2 | 数据看板联接通告数据源 | 蝉妈妈/飞瓜数据接入 |
 | P3 | 四平台扩展 + 无人值守发布 | 达到条件后开启 |
+
+## Branching & Release Memory
+
+- **永久约定**：正式版本迭代分支统一命名为 `feat/vX.Y.Z`，例如 `feat/v0.1.0`、`feat/v0.2.0`、`feat/v1.2.0`。
+- **主干规则**：`main` 是唯一稳定发布线；版本分支完成验收后，通过 PR 合入 `main`。
+- **发行规则**：PR 合入 `main` 后发布同版本发行版，tag 格式为 `vX.Y.Z`，并保持 `pyproject.toml`、`CHANGELOG.md`、Git tag 一致。
+- **迁出规则**：发行完成后，从最新 `main` 迁出下一版本分支。
+- **历史迁移**：`feat/v1` → `feat/v1.0.0`，`feat/v2` → `feat/v1.1.0`，`feature/liuzl` → `archive/feature-liuzl`；下一版本分支为 `feat/v1.2.0`。
+- **详细规范**：见 `docs/BRANCHING_AND_RELEASE.md`。
 
 ## Evolution
 
@@ -109,4 +119,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-29 after v1 MVP completion — all 56 requirements validated*
+*Last updated: 2026-06-06 after branch/release management standardization*

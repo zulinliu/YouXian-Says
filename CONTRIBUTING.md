@@ -30,10 +30,13 @@
 ### 提交代码
 
 1. **Fork** 本仓库
-2. 基于最新 `main` 分支创建功能分支：
+2. 基于最新 `main` 分支创建版本迭代分支，命名必须遵循 `feat/vX.Y.Z`：
    ```bash
-   git checkout -b feat/your-feature-name
+   git checkout main
+   git pull --ff-only origin main
+   git checkout -b feat/v1.2.0
    ```
+   详细规则见 [分支版本管理与发行版规范](./docs/BRANCHING_AND_RELEASE.md)。
 3. 编写代码并确保：
    - 遵循项目现有的代码风格
    - 添加必要的测试
@@ -44,6 +47,14 @@
    git commit -m "feat: 添加 XXX 功能"
    ```
 5. 推送到您的 Fork 并创建 Pull Request
+
+### 版本分支与发行版
+
+- 正式版本分支统一命名为 `feat/vX.Y.Z`，例如 `feat/v0.1.0`、`feat/v0.2.0`、`feat/v1.2.0`。
+- 一个版本分支承载一个完整迭代；完成后通过 PR 合入 `main`。
+- PR 合入 `main` 后发布同版本 GitHub Release，tag 格式为 `vX.Y.Z`。
+- 发布完成后，从最新 `main` 迁出下一个版本分支。
+- 完整规范见 [docs/BRANCHING_AND_RELEASE.md](./docs/BRANCHING_AND_RELEASE.md)。
 
 ### 提交信息规范
 

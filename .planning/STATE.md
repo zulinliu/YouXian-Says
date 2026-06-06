@@ -1,11 +1,11 @@
 ---
 gsd_state_version: 1.0
-milestone: v2
-milestone_name: Frontend Deep Refactor
-status: in_progress
-stopped_at: Frontend redesign complete — login, workspace, all 5 pages rebuilt
-last_updated: "2026-05-29T09:30:00.000Z"
-last_activity: 2026-05-29
+milestone: v1.1.0
+milestone_name: Frontend Deep Refactor + Branch/Release Standardization
+status: release_ready
+stopped_at: v1.1.0 ready to merge to main and release; next branch planned as feat/v1.2.0
+last_updated: "2026-06-06T00:00:00.000+08:00"
+last_activity: 2026-06-06
 progress:
   total_phases: 7
   completed_phases: 7
@@ -19,13 +19,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-05-29)
 
 **Core value:** 用攸县方言讲活攸县故事
-**Current focus:** v2 前端深度重构完成 — 浅色设计系统 + 工作台 + 全站视觉升级
+**Current focus:** v1.1.0 前端深度重构完成，并固化分支版本管理/发行版规范
 
 ## Current Position
 
-Phase: v2 Frontend Refactor
-Status: ✅ **前端重构完成** — 待合并到 main
-Last activity: 2026-05-29
+Phase: v1.1.0 Frontend Refactor + Release Governance
+Status: ✅ **v1.1.0 发行准备完成** — 待合并到 main 并发布发行版
+Last activity: 2026-06-06
 
 Progress: [██████████] 100%
 
@@ -56,6 +56,7 @@ Progress: [██████████] 100%
 | Voice authorization JSON file | 6 | ✓ Good |
 | MiMo TTS via chat/completions with api-key header | Integration | ✓ Good |
 | GPT-image-2 via chat/completions (not responses) | Integration | ✓ Good |
+| Version branches use `feat/vX.Y.Z`; release after PR to `main` | Release Governance | ✓ Good |
 | Env var resolution in ModelRegistry (${VAR}) | Integration | ✓ Good |
 
 ## Test Coverage Summary
@@ -84,6 +85,14 @@ Progress: [██████████] 100%
 | GLM-5.1 (DreamField relay) | ✅ | Text completion |
 | GPT-image-2 (DreamField relay, chat/completions) | ✅ | 881KB image generated |
 | MiMo TTS (token-plan, mimo-v2.5-tts) | ✅ | 207KB WAV audio generated |
+
+## Branching & Release Memory
+
+- 正式版本迭代分支统一使用 `feat/vX.Y.Z`。
+- 历史分支迁移约定：`feat/v1` → `feat/v1.0.0`，`feat/v2` → `feat/v1.1.0`，`feature/liuzl` → `archive/feature-liuzl`。
+- 版本分支完成后通过 PR 合入 `main`，再发布同版本发行版 `vX.Y.Z`。
+- 发布后从最新 `main` 迁出下一版本分支；`v1.1.0` 之后的下一分支为 `feat/v1.2.0`。
+- 详细规范见 `docs/BRANCHING_AND_RELEASE.md`。
 
 ## Deferred Items
 

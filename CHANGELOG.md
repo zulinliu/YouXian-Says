@@ -21,6 +21,8 @@
 
 ### Added
 
+- 分支版本管理与发行版规范（`docs/BRANCHING_AND_RELEASE.md`），约定 `feat/vX.Y.Z`、PR 合入 `main`、发布 `vX.Y.Z` 发行版、发布后迁出下一版本分支
+
 - `web/styles.py` — 全局 CSS 注入模块：设计 Token、Remix Icon、共享 UI 组件
 - `web/pages/workspace.py` — 工作台首页
 - `.streamlit/config.toml` — Streamlit 全局主题配置
@@ -36,7 +38,7 @@
 - 侧边栏刷新后消失（Cookie JWT 恢复认证状态）
 - XSS 漏洞修复（HTML 转义所有变量内容）
 
-## [1.0.0] - 2025-05-29
+## [1.0.0] - 2026-05-29
 
 ### Added
 

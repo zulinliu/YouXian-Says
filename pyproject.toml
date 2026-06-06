@@ -4,13 +4,13 @@ build-backend = "setuptools.backends._legacy:_Backend"
 
 [project]
 name = "youxian-says"
-version = "1.0.0"
+version = "1.1.0"
 description = "攸县方言短视频生产系统"
 requires-python = ">=3.11"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "1.0.0"
+version = "1.1.0"
 version_files = ["pyproject.toml:version"]
 tag_format = "v$version"
 update_changelog_on_bump = true

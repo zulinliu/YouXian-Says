@@ -2,7 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main, feat/v1]
+    branches:
+      - main
+      - 'feat/v*.*.*'
   pull_request:
     branches: [main]
 
